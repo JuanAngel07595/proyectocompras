@@ -54,10 +54,17 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version> <!-- Update to a version that supports -release -->
+				<configuration>
+					<source>1.8</source> <!-- Set the Java source version -->
+					<target>1.8</target> <!-- Set the Java target version -->
+				</configuration>
 			</plugin>
+			<!-- Other plugins -->
 		</plugins>
 	</build>
+
 
 </project>
