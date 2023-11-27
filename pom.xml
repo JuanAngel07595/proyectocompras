@@ -11,13 +11,16 @@
 	<groupId>com.logicfuse</groupId>
 	<artifactId>logicfuse</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>logicfuse</name>
 	<description>Logicfuse Proyecto de Compras Ecommerce</description>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-
 	</properties>
+
 
 	<dependencies>
 		<dependency>
@@ -42,7 +45,6 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
-
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -51,20 +53,14 @@
 		</dependency>
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.11.0</version> <!-- Update to a version that supports -release -->
-				<configuration>
-					<source>1.8</source> <!-- Set the Java source version -->
-					<target>1.8</target> <!-- Set the Java target version -->
-				</configuration>
-			</plugin>
-			<!-- Other plugins -->
-		</plugins>
-	</build>
+		<build>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+				</plugin>
+			</plugins>
+		</build>
 
 
 </project>
