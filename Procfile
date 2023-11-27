@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/logicfuse-0.0.1-SNAPSHOT.jar --server.port=8095
+web: java $JAVA_OPTS -jar target/logicfuse-0.0.1-SNAPSHOT.jar
