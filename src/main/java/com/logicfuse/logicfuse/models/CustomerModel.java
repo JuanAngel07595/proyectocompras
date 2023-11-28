@@ -3,6 +3,7 @@ package com.logicfuse.logicfuse.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -23,10 +24,8 @@ public class CustomerModel {
     @Column(columnDefinition = "VARCHAR(100)")
     private String apellidos;
 
-    @Column(columnDefinition = "VARCHAR(100)")
-    private String direccion_entrega;
 
-    private Date fecha_registro;
+    private LocalDate fecha_registro;
 
     @Column(columnDefinition = "VARCHAR(100)")
     private String correo_electronico;
@@ -42,12 +41,11 @@ public class CustomerModel {
 
     }
 
-    public CustomerModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String direccion_entrega, Date fecha_registro, String correo_electronico, String contrasena, List<SaleModel> ventas) {
+    public CustomerModel(String numero_documento, String tipo_documento, String nombres, String apellidos, LocalDate fecha_registro, String correo_electronico, String contrasena, List<SaleModel> ventas) {
         this.numero_documento = numero_documento;
         this.tipo_documento = tipo_documento;
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.direccion_entrega = direccion_entrega;
         this.fecha_registro = fecha_registro;
         this.correo_electronico = correo_electronico;
         this.contrasena = contrasena;
@@ -86,19 +84,13 @@ public class CustomerModel {
         this.apellidos = apellidos;
     }
 
-    public String getDireccion_entrega() {
-        return direccion_entrega;
-    }
 
-    public void setDireccion_entrega(String direccion_entrega) {
-        this.direccion_entrega = direccion_entrega;
-    }
 
-    public Date getFecha_registro() {
+    public LocalDate getFecha_registro() {
         return fecha_registro;
     }
 
-    public void setFecha_registro(Date fecha_registro) {
+    public void setFecha_registro(LocalDate fecha_registro) {
         this.fecha_registro = fecha_registro;
     }
 
