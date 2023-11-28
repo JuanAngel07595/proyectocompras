@@ -33,6 +33,10 @@ public class CustomerModel {
     @Column(columnDefinition = "VARCHAR(255)")
     private String contrasena;
 
+    @Column(columnDefinition = "BOOLEAN")  // Campo para representar los términos
+    private boolean terminos;
+    @Column(columnDefinition = "BOOLEAN")  // Campo para representar el boletín
+    private boolean boletin;
    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL)
    @JsonIgnore
    private List<SaleModel> ventas;
@@ -42,7 +46,7 @@ public class CustomerModel {
         this.fecha_registro = LocalDate.now();
     }
 
-    public CustomerModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String correo_electronico, String contrasena, List<SaleModel> ventas) {
+    public CustomerModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String correo_electronico, String contrasena, List<SaleModel> ventas, boolean terminos, boolean boletin) {
         this.numero_documento = numero_documento;
         this.tipo_documento = tipo_documento;
         this.nombres = nombres;
@@ -51,6 +55,8 @@ public class CustomerModel {
         this.correo_electronico = correo_electronico;
         this.contrasena = contrasena;
         this.ventas = ventas;
+        this.terminos = terminos;
+        this.boletin = boletin;
     }
 
 
@@ -86,8 +92,6 @@ public class CustomerModel {
         this.apellidos = apellidos;
     }
 
-
-
     public LocalDate getFecha_registro() {
         return fecha_registro;
     }
@@ -110,6 +114,22 @@ public class CustomerModel {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    public boolean isTerminos() {
+        return terminos;
+    }
+
+    public void setTerminos(boolean terminos) {
+        this.terminos = terminos;
+    }
+
+    public boolean isBoletin() {
+        return boletin;
+    }
+
+    public void setBoletin(boolean boletin) {
+        this.boletin = boletin;
     }
 
     public List<SaleModel> getVentas() {
