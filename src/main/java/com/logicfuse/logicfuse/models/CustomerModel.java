@@ -37,25 +37,17 @@ public class CustomerModel {
    @JsonIgnore
    private List<SaleModel> ventas;
 
-
-
     public CustomerModel() {
+        // Establecer la fecha de registro al crear una nueva instancia
         this.fecha_registro = LocalDate.now();
     }
 
-    public CustomerModel(String numero_documento, String tipo_documento, String nombres, String apellidos, LocalDate fecha_registro, String correo_electronico, String contrasena, List<SaleModel> ventas) {
+    public CustomerModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String correo_electronico, String contrasena, List<SaleModel> ventas) {
         this.numero_documento = numero_documento;
         this.tipo_documento = tipo_documento;
         this.nombres = nombres;
         this.apellidos = apellidos;
-
-        // Asegurar que la fecha de registro se establezca incluso si se proporciona manualmente
-        if (fecha_registro != null) {
-            this.fecha_registro = fecha_registro;
-        } else {
-            this.fecha_registro = LocalDate.now();
-        }
-
+        this.fecha_registro = LocalDate.now(); // Establecer automáticamente la fecha de registro
         this.correo_electronico = correo_electronico;
         this.contrasena = contrasena;
         this.ventas = ventas;
