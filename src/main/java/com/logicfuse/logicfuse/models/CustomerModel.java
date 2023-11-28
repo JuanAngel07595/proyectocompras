@@ -37,8 +37,10 @@ public class CustomerModel {
    @JsonIgnore
    private List<SaleModel> ventas;
 
-    public CustomerModel() {
 
+
+    public CustomerModel() {
+        this.fecha_registro = LocalDate.now();
     }
 
     public CustomerModel(String numero_documento, String tipo_documento, String nombres, String apellidos, LocalDate fecha_registro, String correo_electronico, String contrasena, List<SaleModel> ventas) {
@@ -46,11 +48,19 @@ public class CustomerModel {
         this.tipo_documento = tipo_documento;
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.fecha_registro = fecha_registro;
+
+        // Asegurar que la fecha de registro se establezca incluso si se proporciona manualmente
+        if (fecha_registro != null) {
+            this.fecha_registro = fecha_registro;
+        } else {
+            this.fecha_registro = LocalDate.now();
+        }
+
         this.correo_electronico = correo_electronico;
         this.contrasena = contrasena;
         this.ventas = ventas;
     }
+
 
     public String getNumero_documento() {
         return numero_documento;
