@@ -17,7 +17,7 @@ public class LoginModel {
 
     @OneToOne
     @MapsId
-    @JoinColumn(name = "numero_documento")
+    @JoinColumn(name = "correo_electronico")
     private CustomerModel customer;
 
     public String getCorreo_electronico() {
