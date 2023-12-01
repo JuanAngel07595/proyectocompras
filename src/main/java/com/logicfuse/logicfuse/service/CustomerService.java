@@ -39,12 +39,16 @@ public class CustomerService {
             LoginModel loginModel = customerModel.getLogin();
             loginService.saveLogin(loginModel);
 
+            // Forzar flush
+            customerRepository.flush();
+
             return responseDTO;
         } catch (Exception error) {
             responseDTO = new ResponseDTO(400, "Hubo un error", error);
             return responseDTO;
         }
     }
+
     public ResponseDTO updateCustomer(CustomerModel customerModel) {
         ResponseDTO responseDTO;
         try {
