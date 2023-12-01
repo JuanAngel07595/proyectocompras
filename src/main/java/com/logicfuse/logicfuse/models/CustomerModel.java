@@ -49,7 +49,6 @@ public class CustomerModel {
         // Establecer la fecha de registro al crear una nueva instancia
         this.fecha_registro = LocalDate.now();
     }
-
     public CustomerModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String correo_electronico, String contrasena, List<SaleModel> ventas, boolean terminos, boolean boletin) {
         this.numero_documento = numero_documento;
         this.tipo_documento = tipo_documento;
@@ -62,12 +61,13 @@ public class CustomerModel {
         this.terminos = terminos;
         this.boletin = boletin;
 
+        // Crear instancia de LoginModel y establecer la relación bidireccional
         LoginModel login = new LoginModel();
         login.setCorreo_electronico(correo_electronico);
         login.setCustomer(this);
-
         this.login = login;
     }
+
 
     // Getters y Setters
 
