@@ -37,13 +37,9 @@ public class CustomerModel {
     private boolean terminos;
     @Column(columnDefinition = "BOOLEAN")  // Campo para representar el boletín
     private boolean boletin;
-   @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL)
-   @JsonIgnore
-   private List<SaleModel> ventas;
-
-    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-    @JoinColumn(name = "correo_electronico")  // Relacionar con el correo electrónico
-    private LoginModel login;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<SaleModel> ventas;
 
     public CustomerModel() {
         // Establecer la fecha de registro al crear una nueva instancia
@@ -63,10 +59,6 @@ public class CustomerModel {
         this.boletin = boletin;
     }
 
-
-    public CustomerModel(LoginModel login) {
-        this.login = login;
-    }
 
     public String getNumero_documento() {
         return numero_documento;
@@ -146,13 +138,5 @@ public class CustomerModel {
 
     public void setVentas(List<SaleModel> ventas) {
         this.ventas = ventas;
-    }
-
-    public LoginModel getLogin() {
-        return login;
-    }
-
-    public void setLogin(LoginModel login) {
-        this.login = login;
     }
 }
