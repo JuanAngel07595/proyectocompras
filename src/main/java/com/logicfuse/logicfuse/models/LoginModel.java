@@ -8,7 +8,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "login")
+@Table(name = "logins")
 
 public class LoginModel {
 
