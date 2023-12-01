@@ -29,5 +29,17 @@ public class CustomerController {
         return ResponseEntity.status(response.getCode()).body(response);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseDTO> updateCustomer(@Validated @PathVariable String numero_documento, @RequestBody CustomerModel customerModel) {
+        customerModel.setNumero_documento(numero_documento);
+        ResponseDTO response = customerService.updateCustomer(customerModel);
+        return ResponseEntity.status(response.getCode()).body(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@Validated @PathVariable String numero_documento) {
+        customerService.deleteCustomer(numero_documento);
+    }
+
 }
 

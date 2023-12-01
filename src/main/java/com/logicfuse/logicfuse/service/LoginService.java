@@ -7,15 +7,12 @@ import com.logicfuse.logicfuse.repositories.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-
 @Service
 public class LoginService {
 
     @Autowired
     private LoginRepository loginRepository;
 
-    @Transactional
     public ResponseDTO saveLogin(LoginModel loginModel) {
         ResponseDTO responseDTO;
         try {

@@ -55,21 +55,19 @@ public class CustomerModel {
         this.tipo_documento = tipo_documento;
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.fecha_registro = LocalDate.now();
+        this.fecha_registro = LocalDate.now(); // Establecer automáticamente la fecha de registro
         this.correo_electronico = correo_electronico;
         this.contrasena = contrasena;
         this.ventas = ventas;
         this.terminos = terminos;
         this.boletin = boletin;
 
-        // Crear y asociar el LoginModel
         LoginModel login = new LoginModel();
         login.setCorreo_electronico(correo_electronico);
-        login.setCustomer(this); // Asociar el LoginModel con el CustomerModel
+        login.setCustomer(this);
 
         this.login = login;
     }
-
 
     // Getters y Setters
 
