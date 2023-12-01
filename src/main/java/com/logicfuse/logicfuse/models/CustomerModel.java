@@ -61,11 +61,7 @@ public class CustomerModel {
         this.terminos = terminos;
         this.boletin = boletin;
 
-        // Crear instancia de LoginModel y establecer la relación bidireccional
-        LoginModel login = new LoginModel();
-        login.setCorreo_electronico(correo_electronico);
-        login.setCustomer(this); // Set the customer field of the LoginModel to this
-        this.login = login;
+
     }
 
     // Getters y Setters
