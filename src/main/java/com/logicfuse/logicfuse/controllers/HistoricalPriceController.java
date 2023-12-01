@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/historicalprice")
 public class HistoricalPriceController {
 
