@@ -1,12 +1,9 @@
 package com.logicfuse.logicfuse.models;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-
 
 @Entity
 @Table(name = "customers")
@@ -18,12 +15,12 @@ public class CustomerModel {
 
     @Column(columnDefinition = "VARCHAR(2)")
     private String tipo_documento;
+
     @Column(columnDefinition = "VARCHAR(100)")
     private String nombres;
 
     @Column(columnDefinition = "VARCHAR(100)")
     private String apellidos;
-
 
     private LocalDate fecha_registro;
 
@@ -35,11 +32,18 @@ public class CustomerModel {
 
     @Column(columnDefinition = "BOOLEAN")  // Campo para representar los términos
     private boolean terminos;
+
     @Column(columnDefinition = "BOOLEAN")  // Campo para representar el boletín
     private boolean boletin;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<SaleModel> ventas;
+
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private LoginModel login;
+
+    // Otros campos
 
     public CustomerModel() {
         // Establecer la fecha de registro al crear una nueva instancia
@@ -57,8 +61,15 @@ public class CustomerModel {
         this.ventas = ventas;
         this.terminos = terminos;
         this.boletin = boletin;
+
+        LoginModel login = new LoginModel();
+        login.setCorreo_electronico(correo_electronico);
+        login.setCustomer(this);
+
+        this.login = login;
     }
 
+    // Getters y Setters
 
     public String getNumero_documento() {
         return numero_documento;
@@ -138,5 +149,13 @@ public class CustomerModel {
 
     public void setVentas(List<SaleModel> ventas) {
         this.ventas = ventas;
+    }
+
+    public LoginModel getLogin() {
+        return login;
+    }
+
+    public void setLogin(LoginModel login) {
+        this.login = login;
     }
 }

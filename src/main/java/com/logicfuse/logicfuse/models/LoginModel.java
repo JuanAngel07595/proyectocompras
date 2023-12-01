@@ -20,11 +20,6 @@ public class LoginModel {
     @JoinColumn(name = "correo_electronico")  // Relacionar con el correo electrónico
     private CustomerModel customer;
 
-    public LoginModel(String correo_electronico, CustomerModel customer) {
-        this.correo_electronico = correo_electronico;
-        this.customer = customer;
-    }
-
     public String getCorreo_electronico() {
         return correo_electronico;
     }
@@ -39,5 +34,13 @@ public class LoginModel {
 
     public void setCustomer(CustomerModel customer) {
         this.customer = customer;
+    }
+
+    public LoginModel(String correo_electronico, CustomerModel customer) {
+        this.correo_electronico = correo_electronico;
+        this.customer = customer;
+    }
+
+    public LoginModel() {
     }
 }

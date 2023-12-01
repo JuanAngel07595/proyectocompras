@@ -3,7 +3,9 @@ package com.logicfuse.logicfuse.service;
 
 import com.logicfuse.logicfuse.dto.ResponseDTO;
 import com.logicfuse.logicfuse.models.CustomerModel;
+import com.logicfuse.logicfuse.models.LoginModel;
 import com.logicfuse.logicfuse.repositories.CustomerRepository;
+import com.logicfuse.logicfuse.repositories.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,10 @@ public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+
+    @Autowired
+    private LoginService loginService;
 
     public ResponseDTO getAllCustomers (){
         ResponseDTO responseDTO;
@@ -27,14 +33,18 @@ public class CustomerService {
     public ResponseDTO saveCustomer(CustomerModel customerModel) {
         ResponseDTO responseDTO;
         try {
-            responseDTO = new ResponseDTO(200, "Todo salio bien", customerRepository.save(customerModel));
+            responseDTO = new ResponseDTO(200, "Todo salió bien", customerRepository.save(customerModel));
+
+            // Guardar también el login
+            LoginModel loginModel = customerModel.getLogin();
+            loginService.saveLogin(loginModel);
+
             return responseDTO;
-        }catch (Exception error){
+        } catch (Exception error) {
             responseDTO = new ResponseDTO(400, "Hubo un error", error);
             return responseDTO;
         }
     }
-
     public ResponseDTO updateCustomer(CustomerModel customerModel) {
         ResponseDTO responseDTO;
         try {
