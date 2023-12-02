@@ -36,8 +36,8 @@ public class CustomerService {
             responseDTO = new ResponseDTO(200, "Todo salió bien", customerRepository.save(customerModel));
 
             // Guardar también el login
-            LoginModel loginModel = customerModel.getLogin();
-            loginService.saveLogin(loginModel);
+        //    LoginModel loginModel = customerModel.getLogin();
+          //  loginService.saveLogin(loginModel);
 
             // Forzar flush
             customerRepository.flush();
