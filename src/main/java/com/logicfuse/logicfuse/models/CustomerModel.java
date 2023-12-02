@@ -40,8 +40,8 @@ public class CustomerModel {
     @JsonIgnore
     private List<SaleModel> ventas;
 
-   // @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-    //private LoginModel login;
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    private LoginModel login;
 
     // Otros campos
 
@@ -146,11 +146,11 @@ public class CustomerModel {
         this.ventas = ventas;
     }
 
-   // public LoginModel getLogin() {
-     //   return login;
-    //}
+    public LoginModel getLogin() {
+        return login;
+    }
 
-    //public void setLogin(LoginModel login) {
-      //  this.login = login;
-    //}
+    public void setLogin(LoginModel login) {
+        this.login = login;
+    }
 }
