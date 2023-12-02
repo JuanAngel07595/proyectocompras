@@ -22,8 +22,8 @@ public class SaleModel {
     @Column(columnDefinition = "VARCHAR(255)")
     private String direccion_entrega;
 
-    @ManyToOne
-    private CustomerModel cliente;
+    // @ManyToOne
+    //private CustomerModel cliente;
 
     @ManyToOne
     @JoinColumn(name = "historico_precio_id")
@@ -33,13 +33,13 @@ public class SaleModel {
 
     }
 
-    public SaleModel(Integer id_venta, Integer cantidad, Double subtotal, LocalDateTime fecha_venta, String direccion_entrega, CustomerModel cliente, HistoricalPriceModel historicoPrecio) {
+    public SaleModel(Integer id_venta, Integer cantidad, Double subtotal, LocalDateTime fecha_venta, String direccion_entrega, HistoricalPriceModel historicoPrecio) {
         this.id_venta = id_venta;
         this.cantidad = cantidad;
         this.subtotal = subtotal;
         this.fecha_venta = fecha_venta;
         this.direccion_entrega = direccion_entrega;
-        this.cliente = cliente;
+      //  this.cliente = cliente;
         this.historicoPrecio = historicoPrecio;
     }
 
@@ -83,13 +83,13 @@ public class SaleModel {
         this.direccion_entrega = direccion_entrega;
     }
 
-    public CustomerModel getCliente() {
-        return cliente;
-    }
+   // public CustomerModel getCliente() {
+  //      return cliente;
+    //}
 
-    public void setCliente(CustomerModel cliente) {
-        this.cliente = cliente;
-    }
+    //public void setCliente(CustomerModel cliente) {
+     //   this.cliente = cliente;
+   // }
 
     public HistoricalPriceModel getHistoricoPrecio() {
         return historicoPrecio;
