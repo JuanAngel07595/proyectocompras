@@ -9,6 +9,7 @@ import com.logicfuse.logicfuse.models.CustomerModel;
 import com.logicfuse.logicfuse.models.LoginModel;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/auth")
 public class CustomerController {
 
