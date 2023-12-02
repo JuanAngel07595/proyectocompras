@@ -50,7 +50,7 @@ public class CustomerModel {
         // Establecer la fecha de registro al crear una nueva instancia
         this.fecha_registro = LocalDate.now();
     }
-    public CustomerModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String email, boolean terminos, boolean boletin) {
+    public CustomerModel(String numero_documento, String tipo_documento, String nombres,String contrasena, String apellidos, String email, boolean terminos, boolean boletin) {
         this.numero_documento = numero_documento;
         this.tipo_documento = tipo_documento;
         this.nombres = nombres;
