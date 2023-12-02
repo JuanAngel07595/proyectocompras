@@ -42,15 +42,15 @@ public class CustomerService {
         // Puedes utilizar Spring Security u otras técnicas según tus necesidades
 
         // Ejemplo simple: Verificar si el correo electrónico y la contraseña coinciden
-        CustomerModel customer = customerRepository.findByEmail(login.getemail());
+            LoginModel loginModel = loginRepository.findByEmail(login.getemail());
             System.out.println("Email: " + login.getemail());
             System.out.println("Contraseña: " + login.getCustomer().getContrasena());
 
-        if (customer != null && customer.getContrasena().equals(login.getCustomer().getContrasena())) {
-            return "Login exitoso";
-        } else {
-            throw new RuntimeException("Credenciales incorrectas");
-        }
+            if (loginModel != null && loginModel.getCustomer().getContrasena().equals(login.getCustomer().getContrasena())) {
+                return "Login exitoso";
+            } else {
+                throw new RuntimeException("Credenciales incorrectas");
+            }
         } catch (EntityNotFoundException e) {
                 e.printStackTrace(); // O utiliza un logger para registrar el error.
                 throw new RuntimeException("Usuario no encontrado");
