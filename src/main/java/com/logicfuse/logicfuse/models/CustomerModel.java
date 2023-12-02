@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+
 @Entity
 @Table(name = "customers")
 public class CustomerModel {
@@ -40,9 +41,10 @@ public class CustomerModel {
     //@JsonIgnore
     //private List<SaleModel> ventas;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "email", referencedColumnName = "email", insertable = false, updatable = false)
     private LoginModel login;
+
 
     // Otros campos
 
@@ -50,7 +52,7 @@ public class CustomerModel {
         // Establecer la fecha de registro al crear una nueva instancia
         this.fecha_registro = LocalDate.now();
     }
-    public CustomerModel(String numero_documento, String tipo_documento, String nombres,String contrasena, String apellidos, String email, boolean terminos, boolean boletin) {
+    public CustomerModel(String numero_documento, String tipo_documento, String nombres, String contrasena, String apellidos, String email, boolean terminos, boolean boletin) {
         this.numero_documento = numero_documento;
         this.tipo_documento = tipo_documento;
         this.nombres = nombres;
@@ -58,17 +60,14 @@ public class CustomerModel {
         this.fecha_registro = LocalDate.now(); // Establecer automáticamente la fecha de registro
         this.email = email;
         this.contrasena = contrasena;
-       // this.ventas = ventas;
+        // this.ventas = ventas;
         this.terminos = terminos;
         this.boletin = boletin;
 
-        // Crear instancia de LoginModel y establecer la relación bidireccional
-        LoginModel login = new LoginModel();
-        login.setemail(email);
-        login.setCustomer(this);
+        LoginModel login = new LoginModel(email, this);
         this.login = login;
-    }
 
+    }
 
     // Getters y Setters
 
