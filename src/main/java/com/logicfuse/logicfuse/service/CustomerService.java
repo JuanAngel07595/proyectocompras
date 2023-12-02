@@ -16,8 +16,7 @@ public class CustomerService {
     private CustomerRepository customerRepository;
 
 
-    @Autowired
-    private LoginService loginService;
+    //@Autowired
 
     public ResponseDTO getAllCustomers (){
         ResponseDTO responseDTO;
