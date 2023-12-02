@@ -12,6 +12,7 @@ import java.util.List;
 
 public class LoginModel {
 
+    @Id
     private String correo_electronico;  // Cambiar el identificador a correo electrónico
 
     @OneToOne
