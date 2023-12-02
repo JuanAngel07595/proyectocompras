@@ -1,5 +1,6 @@
 package com.logicfuse.logicfuse.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.logicfuse.logicfuse.models.CustomerModel;
@@ -18,7 +19,7 @@ public class CustomerService {
 
     public String register(CustomerModel customer) {
         // Verificar si el correo electrónico ya está registrado
-        if (customerRepository.findByEmail(customer.getEmail()) != null) {
+        if (customerRepository.findbycorreo_electronico(customer.getCorreo_electronico()) != null) {
             throw new RuntimeException("El correo electrónico ya está registrado");
         }
 
@@ -33,7 +34,7 @@ public class CustomerService {
         // Puedes utilizar Spring Security u otras técnicas según tus necesidades
 
         // Ejemplo simple: Verificar si el correo electrónico y la contraseña coinciden
-        CustomerModel customer = customerRepository.findByEmail(login.getCorreo_electronico());
+        CustomerModel customer = customerRepository.findbycorreo_electronico(login.getCorreo_electronico());
 
         if (customer != null && customer.getContrasena().equals(login.getCustomer().getContrasena())) {
             return "Login exitoso";
@@ -42,3 +43,4 @@ public class CustomerService {
         }
     }
 }
+

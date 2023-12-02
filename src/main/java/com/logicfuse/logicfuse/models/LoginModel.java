@@ -13,16 +13,20 @@ import java.util.List;
 public class LoginModel {
 
     @Id
-    private String email;  // Cambiar el identificador a correo electrónico
+    @Column(name = "correo_electronico", nullable = false, unique = true)
+    private String correo_electronico;
+
+    // Otros campos y anotaciones según sea necesario
 
     @OneToOne(mappedBy = "login", cascade = CascadeType.ALL)
     private CustomerModel customer;
+
     public String getCorreo_electronico() {
-        return email;
+        return correo_electronico;
     }
 
     public void setCorreo_electronico(String correo_electronico) {
-        this.email = correo_electronico;
+        this.correo_electronico = correo_electronico;
     }
 
     public CustomerModel getCustomer() {
@@ -34,7 +38,7 @@ public class LoginModel {
     }
 
     public LoginModel(String correo_electronico, CustomerModel customer) {
-        this.email = correo_electronico;
+        this.correo_electronico = correo_electronico;
         this.customer = customer;
     }
 
