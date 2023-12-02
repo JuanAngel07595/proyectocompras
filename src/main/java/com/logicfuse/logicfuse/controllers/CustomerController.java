@@ -31,8 +31,10 @@ public class CustomerController {
             String response = customerService.login(login);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
+            e.printStackTrace(); // O utiliza un logger para registrar el error.
             return ResponseEntity.badRequest().body("Error en el login: " + e.getMessage());
         }
     }
-}
+    }
+
 
