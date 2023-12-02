@@ -15,11 +15,8 @@ public class LoginModel {
     @Id
     private String email;  // Cambiar el identificador a correo electrónico
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "email")
+    @OneToOne(mappedBy = "login", cascade = CascadeType.ALL)
     private CustomerModel customer;
-
     public String getCorreo_electronico() {
         return email;
     }

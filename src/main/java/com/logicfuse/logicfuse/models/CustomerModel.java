@@ -40,7 +40,8 @@ public class CustomerModel {
     //@JsonIgnore
     //private List<SaleModel> ventas;
 
-    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "email", referencedColumnName = "email", insertable = false, updatable = false)
     private LoginModel login;
 
     // Otros campos
