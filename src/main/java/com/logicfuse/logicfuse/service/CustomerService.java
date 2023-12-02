@@ -37,27 +37,26 @@ public class CustomerService {
     }
 
     public String login(LoginModel login) {
-        try{
-        // Realizar lógica de autenticación aquí
-        // Puedes utilizar Spring Security u otras técnicas según tus necesidades
-
-        // Ejemplo simple: Verificar si el correo electrónico y la contraseña coinciden
+        try {
+            System.out.println("Intento de inicio de sesión para: " + login.getemail());
             LoginModel loginModel = loginRepository.findByEmail(login.getemail());
-            System.out.println("Email: " + login.getemail());
-            System.out.println("Contraseña: " + login.getCustomer().getContrasena());
 
-            if (loginModel != null && loginModel.getCustomer().getContrasena().equals(login.getCustomer().getContrasena())) {
-                return "Login exitoso";
+            if (loginModel != null) {
+                System.out.println("Usuario encontrado. Contraseña en LoginModel: " + loginModel.getCustomer().getContrasena());
+                System.out.println("Contraseña proporcionada en la solicitud: " + login.getCustomer().getContrasena());
+
+                if (loginModel.getCustomer().getContrasena().equals(login.getCustomer().getContrasena())) {
+                    return "Login exitoso";
+                } else {
+                    throw new RuntimeException("Credenciales incorrectas");
+                }
             } else {
-                throw new RuntimeException("Credenciales incorrectas");
-            }
-        } catch (EntityNotFoundException e) {
-                e.printStackTrace(); // O utiliza un logger para registrar el error.
                 throw new RuntimeException("Usuario no encontrado");
-            } catch (RuntimeException e) {
-                e.printStackTrace(); // O utiliza un logger para registrar el error.
-                throw new RuntimeException("Error en el login: " + e.getMessage());
             }
+        } catch (Exception e) {
+            e.printStackTrace(); // O utiliza un logger para registrar el error.
+            throw new RuntimeException("Error en el login: " + e.getMessage());
+        }
         }
     }
 
