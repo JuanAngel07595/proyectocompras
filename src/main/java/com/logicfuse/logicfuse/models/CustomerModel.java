@@ -26,7 +26,7 @@ public class CustomerModel {
     private LocalDate fecha_registro;
 
     @Column(columnDefinition = "VARCHAR(100)")
-    private String correo_electronico;
+    private String email;
     @Column(columnDefinition = "VARCHAR(255)")
     private String contrasena;
 
@@ -41,7 +41,7 @@ public class CustomerModel {
     //private List<SaleModel> ventas;
 
     @OneToOne
-    @JoinColumn(name = "correo_electronico", referencedColumnName = "correo_electronico", insertable = false, updatable = false)
+    @JoinColumn(name = "email", referencedColumnName = "email", insertable = false, updatable = false)
     private LoginModel login;
 
     // Otros campos
@@ -50,13 +50,13 @@ public class CustomerModel {
         // Establecer la fecha de registro al crear una nueva instancia
         this.fecha_registro = LocalDate.now();
     }
-    public CustomerModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String correo_electronico, boolean terminos, boolean boletin) {
+    public CustomerModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String email, boolean terminos, boolean boletin) {
         this.numero_documento = numero_documento;
         this.tipo_documento = tipo_documento;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.fecha_registro = LocalDate.now(); // Establecer automáticamente la fecha de registro
-        this.correo_electronico = correo_electronico;
+        this.email = email;
         this.contrasena = contrasena;
        // this.ventas = ventas;
         this.terminos = terminos;
@@ -64,7 +64,7 @@ public class CustomerModel {
 
         // Crear instancia de LoginModel y establecer la relación bidireccional
         LoginModel login = new LoginModel();
-        login.setCorreo_electronico(correo_electronico);
+        login.setemail(email);
         login.setCustomer(this);
         this.login = login;
     }
@@ -112,12 +112,12 @@ public class CustomerModel {
         this.fecha_registro = fecha_registro;
     }
 
-    public String getCorreo_electronico() {
-        return correo_electronico;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCorreo_electronico(String correo_electronico) {
-        this.correo_electronico = correo_electronico;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getContrasena() {

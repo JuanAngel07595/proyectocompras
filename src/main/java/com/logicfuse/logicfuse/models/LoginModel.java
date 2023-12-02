@@ -13,20 +13,20 @@ import java.util.List;
 public class LoginModel {
 
     @Id
-    @Column(name = "correo_electronico", nullable = false, unique = true)
-    private String correo_electronico;
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
     // Otros campos y anotaciones según sea necesario
 
     @OneToOne(mappedBy = "login", cascade = CascadeType.ALL)
     private CustomerModel customer;
 
-    public String getCorreo_electronico() {
-        return correo_electronico;
+    public String getemail() {
+        return email;
     }
 
-    public void setCorreo_electronico(String correo_electronico) {
-        this.correo_electronico = correo_electronico;
+    public void setemail(String email) {
+        this.email = email;
     }
 
     public CustomerModel getCustomer() {
@@ -37,8 +37,8 @@ public class LoginModel {
         this.customer = customer;
     }
 
-    public LoginModel(String correo_electronico, CustomerModel customer) {
-        this.correo_electronico = correo_electronico;
+    public LoginModel(String email, CustomerModel customer) {
+        this.email = email;
         this.customer = customer;
     }
 

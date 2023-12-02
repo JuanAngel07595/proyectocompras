@@ -19,7 +19,7 @@ public class CustomerService {
 
     public String register(CustomerModel customer) {
         // Verificar si el correo electrónico ya está registrado
-        if (customerRepository.findbycorreo_electronico(customer.getCorreo_electronico()) != null) {
+        if (customerRepository.findByEmail(customer.getEmail()) != null) {
             throw new RuntimeException("El correo electrónico ya está registrado");
         }
 
@@ -34,7 +34,7 @@ public class CustomerService {
         // Puedes utilizar Spring Security u otras técnicas según tus necesidades
 
         // Ejemplo simple: Verificar si el correo electrónico y la contraseña coinciden
-        CustomerModel customer = customerRepository.findbycorreo_electronico(login.getCorreo_electronico());
+        CustomerModel customer = customerRepository.findByEmail(login.getemail());
 
         if (customer != null && customer.getContrasena().equals(login.getCustomer().getContrasena())) {
             return "Login exitoso";
