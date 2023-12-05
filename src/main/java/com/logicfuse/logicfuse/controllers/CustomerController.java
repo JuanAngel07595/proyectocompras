@@ -10,7 +10,7 @@ import com.logicfuse.logicfuse.models.LoginModel;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api")
+@RequestMapping("/register")
 public class CustomerController {
 
     @Autowired
