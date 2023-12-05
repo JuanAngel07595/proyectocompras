@@ -10,7 +10,7 @@ import com.logicfuse.logicfuse.models.LoginModel;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/register")
+@RequestMapping("/api/auth")
 public class CustomerController {
 
     @Autowired
@@ -26,6 +26,16 @@ public class CustomerController {
         }
     }
 
-}
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginModel login) {
+        try {
+            String response = customerService.login(login);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Error en el login: " + e.getMessage());
+        }
+    }
+    }
 
 
