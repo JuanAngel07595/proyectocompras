@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/auth")
-public class LoginController {
+@RequestMapping("/login")
 
+public class LoginController {
 
 @Autowired
     LoginService loginService;
