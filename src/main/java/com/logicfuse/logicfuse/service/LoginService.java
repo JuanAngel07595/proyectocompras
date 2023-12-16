@@ -1,7 +1,7 @@
 package com.logicfuse.logicfuse.service;
-
 import com.logicfuse.logicfuse.models.LoginModel;
 import com.logicfuse.logicfuse.repositories.LoginRepository;
+import com.logicfuse.logicfuse.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,28 +9,27 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 
     @Autowired
-    LoginRepository loginRepository;
+    private JwtService jwtService;
+
+@Autowired
+private LoginModel loginModel;
+    // Otros métodos y atributos
 
     public String login(LoginModel login) {
         try {
-            System.out.println("Intento de inicio de sesión para: " + login.getemail());
-            LoginModel loginModel = loginRepository.findByEmail(login.getemail());
+            // Tu código de autenticación aquí...
 
-            if (loginModel != null) {
-                System.out.println("Usuario encontrado. Contraseña en LoginModel: " + loginModel.getCustomer().getContrasena());
-                System.out.println("Contraseña proporcionada en la solicitud: " + login.getCustomer().getContrasena());
-
-                if (loginModel.getCustomer().getContrasena().equals(login.getCustomer().getContrasena())) {
-                    return "Login exitoso";
-                } else {
-                    throw new RuntimeException("Credenciales incorrec tas");
-                }
+            if (loginModel != null && loginModel.getCustomer().getContrasena().equals(login.getCustomer().getContrasena())) {
+                // Autenticación exitosa, generamos el token
+                String token = jwtService.generateToken(loginModel.getemail());
+                return token;
             } else {
-                throw new RuntimeException("Usuario no encontrado");
+                throw new RuntimeException("Credenciales incorrectas");
             }
         } catch (Exception e) {
-            e.printStackTrace(); // O utiliza un logger para registrar el error.
+            e.printStackTrace(); // Loguear el error o utilizar un logger
             throw new RuntimeException("Error en el login: " + e.getMessage());
         }
+        }
     }
-}
+
