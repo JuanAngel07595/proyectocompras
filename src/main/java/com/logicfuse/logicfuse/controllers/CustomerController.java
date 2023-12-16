@@ -1,12 +1,10 @@
 package com.logicfuse.logicfuse.controllers;
 
-
+import com.logicfuse.logicfuse.models.CustomerModel;
 import com.logicfuse.logicfuse.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.logicfuse.logicfuse.models.CustomerModel;
-import com.logicfuse.logicfuse.models.LoginModel;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -17,14 +15,14 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody CustomerModel customer) {
+    public ResponseEntity<String> register(@RequestBody CustomerModel customer, @RequestHeader("Authorization") String jwtToken) {
         try {
-            String response = customerService.register(customer);
+            String response = customerService.register(customer, jwtToken);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error en el registro: " + e.getMessage());
         }
     }
-
 }
+
 
