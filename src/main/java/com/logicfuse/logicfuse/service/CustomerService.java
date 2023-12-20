@@ -7,8 +7,6 @@ import com.logicfuse.logicfuse.models.LoginModel;
 import com.logicfuse.logicfuse.repositories.CustomerRepository;
 import com.logicfuse.logicfuse.repositories.LoginRepository;
 
-import javax.persistence.EntityNotFoundException;
-
 @Service
 public class CustomerService {
 
@@ -21,35 +19,23 @@ public class CustomerService {
     @Autowired
     private JwtService jwtService;
 
-    public String register(CustomerModel customer, String jwtToken) {
-        try {
-            // Validar el token JWT
-            if (!jwtService.validateToken(jwtToken)) {
-                throw new RuntimeException("Token JWT no válido");
-            }
-
-            // Verificar si el correo electrónico ya está registrado
-            if (customerRepository.findByEmail(customer.getEmail()) != null) {
-                throw new RuntimeException("El correo electrónico ya está registrado");
-            }
-
-            // Crear instancia de LoginModel y establecer la relación bidireccional
-            LoginModel login = new LoginModel(customer.getEmail(), customer);
-            customer.setLogin(login);
-
-            // Guardar el cliente y su login en la base de datos
-            customerRepository.save(customer);
-
-            return "Registro exitoso";
-        } catch (Exception e) {
-            e.printStackTrace(); // Loguear el error o utilizar un logger
-            throw new RuntimeException("Error en el registro: " + e.getMessage());
+    public String register(CustomerModel customer) {
+        if (customerRepository.findByEmail(customer.getEmail()) != null) {
+            throw new RuntimeException("El correo electrónico ya está registrado");
         }
+
+        LoginModel login = new LoginModel(customer.getEmail(), customer);
+        customer.setLogin(login);
+
+        customerRepository.save(customer);
+
+        String token = jwtService.generateToken(customer.getEmail());
+        customer.setToken(token);
+        customerRepository.save(customer);
+
+        return "Registro exitoso. Token JWT almacenado en la base de datos.";
     }
-
-    // Otros métodos y atributos
 }
-
 
 
 

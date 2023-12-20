@@ -37,6 +37,10 @@ public class CustomerModel {
     @Column(columnDefinition = "BOOLEAN")  // Campo para representar el boletín
     private boolean boletin;
 
+
+    @Column(columnDefinition = "VARCHAR(255)")
+    private String token;
+
     //@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL)
     //@JsonIgnore
     //private List<SaleModel> ventas;
@@ -52,7 +56,7 @@ public class CustomerModel {
         // Establecer la fecha de registro al crear una nueva instancia
         this.fecha_registro = LocalDate.now();
     }
-    public CustomerModel(String numero_documento, String tipo_documento, String nombres, String contrasena, String apellidos, String email, boolean terminos, boolean boletin) {
+    public CustomerModel(String numero_documento, String tipo_documento, String nombres, String contrasena, String apellidos, String email, String token, boolean terminos, boolean boletin) {
         this.numero_documento = numero_documento;
         this.tipo_documento = tipo_documento;
         this.nombres = nombres;
@@ -63,6 +67,7 @@ public class CustomerModel {
         // this.ventas = ventas;
         this.terminos = terminos;
         this.boletin = boletin;
+        this.token = token;
 
         LoginModel login = new LoginModel(email, this);
         this.login = login;
@@ -150,5 +155,13 @@ public class CustomerModel {
 
     public void setLogin(LoginModel login) {
         this.login = login;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

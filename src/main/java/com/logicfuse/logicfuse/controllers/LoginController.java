@@ -1,30 +1,28 @@
 package com.logicfuse.logicfuse.controllers;
 
 import com.logicfuse.logicfuse.models.LoginModel;
-import com.logicfuse.logicfuse.service.CustomerService;
 import com.logicfuse.logicfuse.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "*")
-@RequestMapping("/login")
-
+@RequestMapping("/api/login")
 public class LoginController {
 
-@Autowired
-    LoginService loginService;
+    @Autowired
+    private LoginService loginService;
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginModel login) {
+    @PostMapping("/authenticate")
+    public ResponseEntity<String> authenticate(@RequestBody LoginModel login) {
         try {
-            String response = loginService.login(login);
-            return ResponseEntity.ok(response);
+            String token = loginService.login(login);
+            return ResponseEntity.ok(token);
         } catch (Exception e) {
-            e.printStackTrace(); // O utiliza un logger para registrar el error.
-            return ResponseEntity.badRequest().body("Error en el login: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Error en la autenticación: " + e.getMessage());
         }
     }
 }
