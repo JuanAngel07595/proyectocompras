@@ -1,8 +1,8 @@
 package com.logicfuse.logicfuse.repositories;
 
 
-import com.logicfuse.logicfuse.models.LoginModel;
 import org.springframework.data.jpa.repository.JpaRepository;
+import com.logicfuse.logicfuse.models.LoginModel;
 import org.springframework.stereotype.Repository;
 
 @Repository

@@ -1,6 +1,7 @@
 package com.logicfuse.logicfuse.controllers;
 
 import com.logicfuse.logicfuse.models.LoginModel;
+import com.logicfuse.logicfuse.service.CustomerService;
 import com.logicfuse.logicfuse.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,7 @@
 package com.logicfuse.logicfuse.service;
-
 import com.logicfuse.logicfuse.models.LoginModel;
+import com.logicfuse.logicfuse.repositories.LoginRepository;
+import com.logicfuse.logicfuse.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
