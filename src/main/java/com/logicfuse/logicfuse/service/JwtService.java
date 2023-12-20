@@ -5,7 +5,12 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+import java.security.Key;
 import java.util.Date;
 
 @Service
@@ -16,6 +21,9 @@ public class JwtService {
 
     @Value("${jwt.expiration}")
     private Long expiration;
+
+    private Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+
 
     public String generateToken(String email) {
         Date now = new Date();
