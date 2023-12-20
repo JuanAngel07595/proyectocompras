@@ -24,33 +24,30 @@ public class JwtService {
 
     private Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
-
     public String generateToken(String email) {
-        Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + expiration);
-
         return Jwts.builder()
                 .setSubject(email)
-                .setIssuedAt(now)
-                .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(secretKey)
                 .compact();
     }
 
     public String getEmailFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(secret)
+        return Jwts.parser()
+                .setSigningKey(secretKey)
                 .parseClaimsJws(token)
-                .getBody();
-        return claims.getSubject();
+                .getBody()
+                .getSubject();
     }
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
-}
+    }
+
