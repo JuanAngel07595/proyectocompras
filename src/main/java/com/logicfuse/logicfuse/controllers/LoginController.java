@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/login")
+@RequestMapping("/login")
 public class LoginController {
 
     @Autowired
     private LoginService loginService;
 
-    @PostMapping("/authenticate")
+    @PostMapping("/login")
     public ResponseEntity<String> authenticate(@RequestBody LoginModel login) {
         try {
             String token = loginService.login(login);
