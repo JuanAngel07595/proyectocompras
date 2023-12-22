@@ -1,11 +1,11 @@
 package com.logicfuse.logicfuse.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.logicfuse.logicfuse.models.CustomerModel;
 import com.logicfuse.logicfuse.models.LoginModel;
 import com.logicfuse.logicfuse.repositories.CustomerRepository;
 import com.logicfuse.logicfuse.repositories.LoginRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerService {
