@@ -29,4 +29,14 @@ public class LoginService {
             throw new RuntimeException("Error en el login: " + e.getMessage());
         }
     }
+
+    public boolean isTokenValid(String token) {
+        try {
+            // Intenta validar el token
+            return jwtService.validateToken(token);
+        } catch (Exception e) {
+            e.printStackTrace(); // O utiliza un logger para registrar el error.
+            return false;
+        }
+    }
 }
