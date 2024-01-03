@@ -30,4 +30,31 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en la autenticación: " + e.getMessage());
         }
 
-    }}
+
+    }
+
+    @GetMapping("/ruta-protegida")
+    public ResponseEntity<String> rutaProtegida(@RequestHeader("Authorization") String authorizationHeader) {
+        try {
+            // Verifica si el encabezado de autorización está presente y tiene el formato correcto
+            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+                // Extrae el token de JWT del encabezado
+                String token = authorizationHeader.substring(7);
+
+                // Valida el token
+                if (jwtService.validateToken(token)) {
+                    // El token es válido, puedes realizar acciones en la ruta protegida
+                    return ResponseEntity.ok("Acceso concedido a la ruta protegida");
+                } else {
+                    throw new RuntimeException("Token no válido");
+                }
+            } else {
+                throw new RuntimeException("Encabezado de autorización no presente o formato incorrecto");
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // O utiliza un logger para registrar el error.
+            return ResponseEntity.status(401).body("Error de autenticación: " + e.getMessage());
+        }
+    }
+}
+
