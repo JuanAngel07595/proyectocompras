@@ -25,10 +25,9 @@ public class LoginController {
             String token = loginService.login(login);
             return ResponseEntity.ok(token);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error de autenticación: " + e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en la autenticación: " + e.getMessage());
         }
+    }
 
-
-    }}
