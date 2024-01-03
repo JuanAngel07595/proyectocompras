@@ -41,14 +41,18 @@ public class JwtService {
             return true;
         } catch (ExpiredJwtException e) {
             System.out.println("El token ha expirado.");
+            throw new RuntimeException("El token ha expirado.");
         } catch (UnsupportedJwtException e) {
             System.out.println("Token JWT no soportado.");
+            throw new RuntimeException("Token JWT no soportado.");
         } catch (MalformedJwtException | SignatureException | IllegalArgumentException e) {
             System.out.println("Token JWT inválido.");
+            throw new RuntimeException("Token JWT inválido.");
         } catch (Exception e) {
             System.out.println("Error al validar el token: " + e.getMessage());
+            throw new RuntimeException("Error al validar el token: " + e.getMessage());
         }
-        return false;
     }
-    }
+
+}
 
