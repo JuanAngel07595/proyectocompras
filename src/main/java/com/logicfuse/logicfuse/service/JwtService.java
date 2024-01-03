@@ -13,19 +13,17 @@ import java.util.Date;
 public class JwtService {
 
     @Value("${jwt.secret}")
-    private String secret;
+    private String secretKey;
 
     @Value("${jwt.expiration}")
     private Long expiration;
-
-    private Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
     public String generateToken(String email) {
         return Jwts.builder()
                 .setSubject(email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(secretKey)
+                .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
     }
 
