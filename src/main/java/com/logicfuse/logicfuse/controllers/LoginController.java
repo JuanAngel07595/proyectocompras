@@ -33,6 +33,7 @@ public class LoginController {
 
     }
 
+
     @GetMapping("/ruta-protegida")
     public ResponseEntity<String> rutaProtegida(@RequestHeader("Authorization") String authorizationHeader) {
         try {
