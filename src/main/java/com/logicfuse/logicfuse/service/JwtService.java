@@ -1,8 +1,8 @@
 package com.logicfuse.logicfuse.service;
 
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -39,9 +39,16 @@ public class JwtService {
         try {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return true;
+        } catch (ExpiredJwtException e) {
+            System.out.println("El token ha expirado.");
+        } catch (UnsupportedJwtException e) {
+            System.out.println("Token JWT no soportado.");
+        } catch (MalformedJwtException | SignatureException | IllegalArgumentException e) {
+            System.out.println("Token JWT inválido.");
         } catch (Exception e) {
-            return false;
+            System.out.println("Error al validar el token: " + e.getMessage());
         }
+        return false;
     }
     }
 
