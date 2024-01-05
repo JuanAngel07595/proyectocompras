@@ -22,9 +22,8 @@ public class LoginService {
         try {
             LoginModel loginModel = loginRepository.findByEmail(login.getemail());
 
-            if (loginModel != null && loginModel.getCustomer().getContrasena().equals(login.getCustomer().getContrasena())) {
-                String token = jwtService.generateToken(loginModel.getemail());
-                return token;
+            if (loginModel != null && customerService.verificarContraseña(login.getCustomer().getContrasena(), loginModel.getemail())) {
+                return jwtService.generateToken(loginModel.getemail());
             } else {
                 throw new RuntimeException("Credenciales incorrectas");
             }

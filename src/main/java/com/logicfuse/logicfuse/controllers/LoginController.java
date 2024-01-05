@@ -26,18 +26,11 @@ public class LoginController {
 
 
 
-    private String extractToken(String authorizationHeader) {
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            return authorizationHeader.substring(7);
-        } else {
-            throw new RuntimeException("Formato de token inválido");
-        }
-    }
+
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestHeader("Authorization") String authorizationHeader, @RequestBody Map<String, String> credentials) {
         try {
-
-            String token = extractToken(authorizationHeader);
+            String token = jwtService.extractToken(authorizationHeader);
             String emailFromToken = jwtService.getEmailFromToken(token);
 
             String emailFromBody = credentials.get("email");
@@ -53,15 +46,13 @@ public class LoginController {
                 throw new RuntimeException("Contraseña incorrecta");
             }
 
-            // El resto de la lógica de autenticación...
-
+            // Devolver el token en lugar de un mensaje de éxito
             String newToken = jwtService.generateToken(emailFromToken);
             return ResponseEntity.ok(newToken);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error de autenticación: " + e.getMessage());
         }
     }
-
 
 
     @GetMapping("/ruta-protegida")
