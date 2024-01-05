@@ -14,6 +14,10 @@ public class LoginService {
     @Autowired
     private LoginRepository loginRepository;
 
+    @Autowired
+    private CustomerService customerService;
+
+
     public String login(LoginModel login) {
         try {
             LoginModel loginModel = loginRepository.findByEmail(login.getemail());
@@ -29,6 +33,8 @@ public class LoginService {
             throw new RuntimeException("Error en el login: " + e.getMessage());
         }
     }
+
+
 
     public boolean isTokenValid(String token) {
         try {

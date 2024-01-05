@@ -1,12 +1,15 @@
 package com.logicfuse.logicfuse.controllers;
 
 import com.logicfuse.logicfuse.models.LoginModel;
+import com.logicfuse.logicfuse.service.CustomerService;
 import com.logicfuse.logicfuse.service.JwtService;
 import com.logicfuse.logicfuse.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/login")
@@ -18,19 +21,45 @@ public class LoginController {
     @Autowired
     private JwtService jwtService;
 
+    @Autowired
+    private CustomerService customerService;
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<String> authenticate(@RequestBody LoginModel login) {
-        try {
-            String token = loginService.login(login);
-            return ResponseEntity.ok(token);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error de autenticación: " + e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error en la autenticación: " + e.getMessage());
+
+
+    private String extractToken(String authorizationHeader) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            return authorizationHeader.substring(7);
+        } else {
+            throw new RuntimeException("Formato de token inválido");
         }
+    }
 
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestHeader("Authorization") String authorizationHeader, @RequestBody Map<String, String> credentials) {
+        try {
 
+            String token = extractToken(authorizationHeader);
+            String emailFromToken = jwtService.getEmailFromToken(token);
+
+            String emailFromBody = credentials.get("email");
+            String passwordFromBody = credentials.get("password");
+
+            // Verificar que el correo del token coincida con el correo del cuerpo
+            if (!emailFromToken.equals(emailFromBody)) {
+                throw new RuntimeException("El correo no coincide");
+            }
+
+            // Verificar la contraseña (puedes realizar la autenticación como lo desees)
+            if (!customerService.verificarContraseña(passwordFromBody, emailFromToken)) {
+                throw new RuntimeException("Contraseña incorrecta");
+            }
+
+            // El resto de la lógica de autenticación...
+
+            return ResponseEntity.ok("Autenticación exitosa");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error de autenticación: " + e.getMessage());
+        }
     }
 
 

@@ -28,12 +28,13 @@ public class JwtService {
     }
 
     public String getEmailFromToken(String token) {
-        return Jwts.parser()
+        Claims claims = Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+                .getBody();
+        return claims.get("email", String.class);
     }
+
 
     public boolean validateToken(String token) {
         try {
@@ -51,6 +52,13 @@ public class JwtService {
         } catch (Exception e) {
             System.out.println("Error al validar el token: " + e.getMessage());
             throw new RuntimeException("Error al validar el token: " + e.getMessage());
+        }
+    }
+    private String extractToken(String authorizationHeader) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            return authorizationHeader.substring(7);
+        } else {
+            throw new RuntimeException("Formato de token inválido");
         }
     }
 
