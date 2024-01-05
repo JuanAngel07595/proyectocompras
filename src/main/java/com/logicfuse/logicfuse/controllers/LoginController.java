@@ -55,11 +55,13 @@ public class LoginController {
 
             // El resto de la lógica de autenticación...
 
-            return ResponseEntity.ok("Autenticación exitosa");
+            String newToken = jwtService.generateToken(emailFromToken);
+            return ResponseEntity.ok(newToken);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error de autenticación: " + e.getMessage());
         }
     }
+
 
 
     @GetMapping("/ruta-protegida")
