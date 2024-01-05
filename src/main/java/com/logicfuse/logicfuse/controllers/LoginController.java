@@ -33,7 +33,6 @@ public class LoginController {
             throw new RuntimeException("Formato de token inválido");
         }
     }
-
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestHeader("Authorization") String authorizationHeader, @RequestBody Map<String, String> credentials) {
         try {
