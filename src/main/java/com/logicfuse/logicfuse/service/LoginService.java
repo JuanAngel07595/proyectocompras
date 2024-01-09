@@ -21,6 +21,7 @@ public class LoginService {
         try {
             LoginModel loginModel = loginRepository.findByEmail(login.getemail());
 
+            // Aquí se está comparando la contraseña del modelo recibido con la contraseña en CustomerService
             if (loginModel != null && customerService.verificarContraseña(login.getCustomer().getContrasena(), loginModel.getemail())) {
                 return jwtService.generateToken(loginModel.getemail());
             } else {

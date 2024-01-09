@@ -40,22 +40,15 @@ public class CustomerService {
         try {
             CustomerModel customer = customerRepository.findByEmail(email);
 
-            // Verificar si el usuario existe
-            if (customer != null) {
-                // Logs para depuración
-                System.out.println("Contraseña almacenada: " + customer.getContrasena());
-
-                // Verificar si la contraseña coincide
-                return customer.getContrasena().equals(contraseñaIngresada);
-            } else {
-                System.out.println("Usuario no encontrado");
-                return false;
-            }
+            // Verificar si el usuario existe y la contraseña coincide
+            return customer != null && customer.getContrasena().equals(contraseñaIngresada);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Error al verificar la contraseña: " + e.getMessage());
         }
     }
+
+
 
     public String getStoredPassword(String email) {
         // Obtener el cliente por correo electrónico desde la base de datos
