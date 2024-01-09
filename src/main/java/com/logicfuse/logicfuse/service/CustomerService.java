@@ -35,9 +35,8 @@ public class CustomerService {
 
         return "Registro exitoso. Token JWT almacenado en la base de datos.";
     }
-    public boolean verificarContraseña(String email) {
+    public boolean verificarContraseña(String contraseñaIngresada, String email) {
         CustomerModel customer = customerRepository.findByEmail(email);
-        String contraseñaIngresada = customer.getContrasena();
 
 
         // Verificar si el usuario existe y la contraseña coincide

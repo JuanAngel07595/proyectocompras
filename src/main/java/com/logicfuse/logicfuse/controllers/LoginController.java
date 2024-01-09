@@ -42,7 +42,7 @@ public class LoginController {
             }
 
             // Verificar la contraseña (puedes realizar la autenticación como lo desees)
-            if (!customerService.verificarContraseña(passwordFromBody)) {
+            if (!customerService.verificarContraseña(passwordFromBody, emailFromToken)) {
                 throw new RuntimeException("Contraseña incorrecta");
             }
 
