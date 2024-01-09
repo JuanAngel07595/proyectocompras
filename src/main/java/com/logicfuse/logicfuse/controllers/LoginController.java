@@ -35,18 +35,18 @@ public class LoginController {
 
             // Verificar que el correo del token coincida con el correo del cuerpo
             if (!emailFromToken.equals(emailFromBody)) {
-                throw new RuntimeException("El correo no coincide");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error de autenticación: El correo no coincide");
             }
+
+            // Logs para depuración
+            String storedPassword = customerService.getStoredPassword(emailFromToken);
+            System.out.println("Contraseña proporcionada: " + passwordFromBody);
+            System.out.println("Contraseña almacenada: " + storedPassword);
 
             // Verificar la contraseña (puedes realizar la autenticación como lo desees)
             boolean isPasswordCorrect = customerService.verificarContraseña(passwordFromBody, emailFromToken);
-
-            // Logs para depuración
-            System.out.println("Contraseña proporcionada: " + passwordFromBody);
-            System.out.println("Contraseña almacenada: " + customerService.getStoredPassword(emailFromToken));
-
             if (!isPasswordCorrect) {
-                throw new RuntimeException("Contraseña incorrecta");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error de autenticación: Contraseña incorrecta");
             }
 
             // Devolver el token en lugar de un mensaje de éxito
@@ -56,6 +56,7 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error de autenticación: " + e.getMessage());
         }
     }
+
 
     @GetMapping("/ruta-protegida")
     public ResponseEntity<String> rutaProtegida(@RequestHeader("Authorization") String authorizationHeader) {
