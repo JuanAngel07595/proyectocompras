@@ -17,7 +17,6 @@ public class LoginService {
     @Autowired
     private CustomerService customerService;
 
-
     public String login(LoginModel login) {
         try {
             LoginModel loginModel = loginRepository.findByEmail(login.getemail());
@@ -33,8 +32,6 @@ public class LoginService {
         }
     }
 
-
-
     public boolean isTokenValid(String token) {
         try {
             // Intenta validar el token
@@ -45,3 +42,4 @@ public class LoginService {
         }
     }
 }
+

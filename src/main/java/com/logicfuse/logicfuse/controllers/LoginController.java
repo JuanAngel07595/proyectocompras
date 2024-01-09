@@ -24,9 +24,6 @@ public class LoginController {
     @Autowired
     private CustomerService customerService;
 
-
-
-
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestHeader("Authorization") String authorizationHeader, @RequestBody Map<String, String> credentials) {
         try {
@@ -54,7 +51,6 @@ public class LoginController {
         }
     }
 
-
     @GetMapping("/ruta-protegida")
     public ResponseEntity<String> rutaProtegida(@RequestHeader("Authorization") String authorizationHeader) {
         try {
@@ -79,4 +75,3 @@ public class LoginController {
         }
     }
 }
-
