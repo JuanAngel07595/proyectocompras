@@ -39,7 +39,13 @@ public class LoginController {
             }
 
             // Verificar la contraseña (puedes realizar la autenticación como lo desees)
-            if (!customerService.verificarContraseña(passwordFromBody, emailFromToken)) {
+            boolean isPasswordCorrect = customerService.verificarContraseña(passwordFromBody, emailFromToken);
+
+            // Logs para depuración
+            System.out.println("Contraseña proporcionada: " + passwordFromBody);
+            System.out.println("Contraseña almacenada: " + customerService.getStoredPassword(emailFromToken));
+
+            if (!isPasswordCorrect) {
                 throw new RuntimeException("Contraseña incorrecta");
             }
 

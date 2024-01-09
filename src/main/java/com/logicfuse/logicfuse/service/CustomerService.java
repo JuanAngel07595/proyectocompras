@@ -42,6 +42,13 @@ public class CustomerService {
         // Verificar si el usuario existe y la contraseña coincide
         return customer != null && customer.getContrasena().equals(contraseñaIngresada);
     }
+    public String getStoredPassword(String email) {
+        // Obtener el cliente por correo electrónico desde la base de datos
+        CustomerModel customer = customerRepository.findByEmail(email);
+
+        // Verificar si el cliente existe y devolver la contraseña almacenada
+        return (customer != null) ? customer.getContrasena() : null;
+    }
 }
 
 
