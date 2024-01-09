@@ -43,12 +43,7 @@ public class LoginController {
             System.out.println("Contraseña proporcionada: " + passwordFromBody);
             System.out.println("Contraseña almacenada: " + storedPassword);
 
-            // Verificar la contraseña (puedes realizar la autenticación como lo desees)
-            boolean isPasswordCorrect = customerService.verificarContraseña(passwordFromBody, emailFromToken);
 
-            if (!customerService.verificarContraseña(passwordFromBody, emailFromToken)) {
-                throw new RuntimeException("Contraseña incorrecta");
-            }
 
             // Devolver el token en lugar de un mensaje de éxito
             String newToken = jwtService.generateToken(emailFromToken);
