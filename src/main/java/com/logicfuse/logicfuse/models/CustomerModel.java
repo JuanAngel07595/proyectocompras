@@ -161,4 +161,5 @@ public class CustomerModel {
     public void setToken(String token) {
         this.token = token;
     }
-}
+
+    }
