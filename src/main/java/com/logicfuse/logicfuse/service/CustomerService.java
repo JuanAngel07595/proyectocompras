@@ -46,9 +46,8 @@ public class CustomerService {
             e.printStackTrace();
             throw new RuntimeException("Error al verificar la contraseña: " + e.getMessage());
         }
-    }
 
-
+}
 
     public String getStoredPassword(String email) {
         // Obtener el cliente por correo electrónico desde la base de datos
