@@ -24,6 +24,9 @@ public class LoginController {
     @Autowired
     private CustomerService customerService;
 
+
+
+
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestHeader("Authorization") String authorizationHeader, @RequestBody Map<String, String> credentials) {
         try {
@@ -35,15 +38,13 @@ public class LoginController {
 
             // Verificar que el correo del token coincida con el correo del cuerpo
             if (!emailFromToken.equals(emailFromBody)) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error de autenticación: El correo no coincide");
+                throw new RuntimeException("El correo no coincide");
             }
 
-            // Logs para depuración
-            String storedPassword = customerService.getStoredPassword(emailFromToken);
-            System.out.println("Contraseña proporcionada: " + passwordFromBody);
-            System.out.println("Contraseña almacenada: " + storedPassword);
-
-
+            // Verificar la contraseña (puedes realizar la autenticación como lo desees)
+            if (!customerService.verificarContraseña(passwordFromBody, emailFromToken)) {
+                throw new RuntimeException("Contraseña incorrecta");
+            }
 
             // Devolver el token en lugar de un mensaje de éxito
             String newToken = jwtService.generateToken(emailFromToken);
@@ -78,3 +79,4 @@ public class LoginController {
         }
     }
 }
+
