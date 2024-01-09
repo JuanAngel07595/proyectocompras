@@ -1,5 +1,4 @@
 package com.logicfuse.logicfuse.controllers;
-
 import com.logicfuse.logicfuse.models.CustomerModel;
 import com.logicfuse.logicfuse.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
