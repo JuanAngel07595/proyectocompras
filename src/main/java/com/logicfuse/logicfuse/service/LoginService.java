@@ -18,7 +18,7 @@ public class LoginService {
     private CustomerService customerService;
 
 
-    public String login(LoginModel login) {
+    private String login(LoginModel login) {
         try {
             LoginModel loginModel = loginRepository.findByEmail(login.getemail());
 

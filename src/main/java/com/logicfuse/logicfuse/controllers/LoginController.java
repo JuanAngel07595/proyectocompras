@@ -34,7 +34,7 @@ public class LoginController {
             String emailFromToken = jwtService.getEmailFromToken(token);
 
             String emailFromBody = credentials.get("email");
-            String passwordFromBody = credentials.get("password");
+            String passwordFromBody = credentials.get("contrasena");
 
             // Verificar que el correo del token coincida con el correo del cuerpo
             if (!emailFromToken.equals(emailFromBody)) {

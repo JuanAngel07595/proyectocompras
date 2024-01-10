@@ -23,7 +23,6 @@ public class CustomerService {
         if (customerRepository.findByEmail(customer.getEmail()) != null) {
             throw new RuntimeException("El correo electrónico ya está registrado");
         }
-
         LoginModel login = new LoginModel(customer.getEmail(), customer);
         customer.setLogin(login);
 
