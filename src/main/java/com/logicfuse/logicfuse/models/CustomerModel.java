@@ -34,9 +34,13 @@ public class CustomerModel {
     @Column(columnDefinition = "BOOLEAN")  // Campo para representar el boletín
     private boolean boletin;
 
+    @Column (columnDefinition = "VARCHAR(255)")
+    private String rol;
 
     @Column(columnDefinition = "VARCHAR(255)")
     private String token;
+
+
 
     //@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL)
     //@JsonIgnore
@@ -53,7 +57,7 @@ public class CustomerModel {
         // Establecer la fecha de registro al crear una nueva instancia
         this.fecha_registro = LocalDate.now();
     }
-    public CustomerModel(String numero_documento, String tipo_documento, String nombres, String contrasena, String apellidos, String email, String token, boolean terminos, boolean boletin) {
+    public CustomerModel(String numero_documento, String tipo_documento, String nombres, String contrasena, String apellidos, String email,String rol, String token, boolean terminos, boolean boletin) {
         this.numero_documento = numero_documento;
         this.tipo_documento = tipo_documento;
         this.nombres = nombres;
@@ -64,6 +68,7 @@ public class CustomerModel {
         // this.ventas = ventas;
         this.terminos = terminos;
         this.boletin = boletin;
+        this.rol = rol;
         this.token = token;
 
         LoginModel login = new LoginModel(email, this);
@@ -71,7 +76,8 @@ public class CustomerModel {
 
     }
 
-    // Getters y Setters
+
+
 
     public String getNumero_documento() {
         return numero_documento;
@@ -162,4 +168,11 @@ public class CustomerModel {
         this.token = token;
     }
 
+    public String getRol() {
+        return rol;
     }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+}

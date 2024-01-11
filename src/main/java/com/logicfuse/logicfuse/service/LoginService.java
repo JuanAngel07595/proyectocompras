@@ -5,6 +5,8 @@ import com.logicfuse.logicfuse.repositories.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+
 @Service
 public class LoginService {
 
@@ -23,7 +25,7 @@ public class LoginService {
             LoginModel loginModel = loginRepository.findByEmail(login.getemail());
 
             if (loginModel != null && customerService.verificarContraseña(login.getCustomer().getContrasena(), loginModel.getemail())) {
-                return jwtService.generateToken(loginModel.getemail());
+                return jwtService.generateToken(loginModel.getemail(), Arrays.asList("ROLE_USER", "ROLE_ADMIN"));
             } else {
                 throw new RuntimeException("Credenciales incorrectas");
             }

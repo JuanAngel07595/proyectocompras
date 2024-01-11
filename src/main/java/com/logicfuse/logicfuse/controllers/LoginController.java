@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -47,7 +49,7 @@ public class LoginController {
             }
 
             // Devolver el token en lugar de un mensaje de éxito
-            String newToken = jwtService.generateToken(emailFromToken);
+            String newToken = jwtService.generateToken(emailFromToken, Arrays.asList("ROLE_USER", "ROLE_ADMIN"));
             return ResponseEntity.ok(newToken);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error de autenticación: " + e.getMessage());
@@ -55,28 +57,23 @@ public class LoginController {
     }
 
 
-    @GetMapping("/ruta-protegida")
     public ResponseEntity<String> rutaProtegida(@RequestHeader("Authorization") String authorizationHeader) {
         try {
-            // Verifica si el encabezado de autorización está presente y tiene el formato correcto
-            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-                // Extrae el token de JWT del encabezado
-                String token = authorizationHeader.substring(7);
+            String token = jwtService.extractToken(authorizationHeader);
+            List<String> roles = jwtService.getRolesFromToken(token);
 
-                // Valida el token
-                if (jwtService.validateToken(token)) {
-                    // El token es válido, puedes realizar acciones en la ruta protegida
-                    return ResponseEntity.ok("Acceso concedido a la ruta protegida");
-                } else {
-                    throw new RuntimeException("Token no válido");
-                }
+            if (roles.contains("Admin")) {
+                // Acceso permitido para Admin
+                return ResponseEntity.ok("Acceso concedido a la ruta protegida para Admin");
+            } else if (roles.contains("Usuario Normal")) {
+                // Acceso permitido para Usuario Normal
+                return ResponseEntity.ok("Acceso concedido a la ruta protegida para Usuario Normal");
             } else {
-                throw new RuntimeException("Encabezado de autorización no presente o formato incorrecto");
+                throw new RuntimeException("No tienes los roles necesarios para acceder a esta ruta");
             }
         } catch (Exception e) {
-            e.printStackTrace(); // O utiliza un logger para registrar el error.
             return ResponseEntity.status(401).body("Error de autenticación: " + e.getMessage());
         }
     }
-}
 
+}

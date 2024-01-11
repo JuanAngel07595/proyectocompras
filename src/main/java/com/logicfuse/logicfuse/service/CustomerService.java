@@ -1,11 +1,16 @@
 package com.logicfuse.logicfuse.service;
 
 import com.logicfuse.logicfuse.models.CustomerModel;
+import com.logicfuse.logicfuse.models.EmployeeModel;
 import com.logicfuse.logicfuse.models.LoginModel;
 import com.logicfuse.logicfuse.repositories.CustomerRepository;
 import com.logicfuse.logicfuse.repositories.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class CustomerService {
@@ -19,6 +24,9 @@ public class CustomerService {
     @Autowired
     private JwtService jwtService;
 
+    @Autowired
+    private EmployeeModel employeeModel;
+
     public String register(CustomerModel customer) {
         if (customerRepository.findByEmail(customer.getEmail()) != null) {
             throw new RuntimeException("El correo electrónico ya está registrado");
@@ -28,9 +36,11 @@ public class CustomerService {
 
         customerRepository.save(customer);
 
-        String token = jwtService.generateToken(customer.getEmail());
+        String token = jwtService.generateToken(customer.getEmail(), Arrays.asList("ROLE_USER", "ROLE_ADMIN"));
+
         customer.setToken(token);
         customerRepository.save(customer);
+
 
         return "Registro exitoso. Token JWT almacenado en la base de datos.";
     }
