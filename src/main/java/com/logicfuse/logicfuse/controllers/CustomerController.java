@@ -39,7 +39,7 @@ public class CustomerController {
         String token = jwtService.generateToken(customer.getEmail(), Collections.singletonList(customer.getRol()));
 
         customer.setToken(token);
-        customerService.register(customer);
+        customerRepository.save(customer);
 
         return "Registro exitoso. Token JWT almacenado en la base de datos.";
     }
