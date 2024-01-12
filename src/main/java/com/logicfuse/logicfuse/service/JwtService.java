@@ -23,7 +23,7 @@ public class JwtService {
     public String generateToken(String email, List<String> roles) {
         return Jwts.builder()
                 .setSubject(email)
-                .claim("Usuario Normal, Admin", roles) // Añade los roles al token
+                .claim("ROLE_USER, ROLE_ADMIN", roles) // Añade los roles al token
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(SignatureAlgorithm.HS512, secretKey)
