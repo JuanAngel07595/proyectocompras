@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -98,7 +99,7 @@ public class LoginController {
             String emailFromToken = jwtService.getEmailFromToken(token);
 
             // Obtener los roles del token
-            Set<String> roles = Collections.singleton(jwtService.getRolesFromToken(token));
+            Set<String> roles = new HashSet<>(jwtService.getRolesFromToken(token));
 
             // Validar que el usuario tenga el rol "ADMIN"
             if (roles.contains("ADMIN")) {
@@ -111,6 +112,7 @@ public class LoginController {
             return ResponseEntity.status(401).body("Error de autenticación: " + e.getMessage());
         }
     }
+
 
 
 }

@@ -40,12 +40,14 @@ private CustomerModel customerModel;
         return claims.getSubject();
     }
 
-    public String getRolesFromToken(String token) {
+    public Set<String> getRolesFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(token)
                 .getBody();
-        return claims.getSubject();
+
+        // Supongamos que los roles están almacenados en el claim "roles"
+        return claims.get("roles", Set.class);
     }
     public boolean validateToken(String token) {
         try {
