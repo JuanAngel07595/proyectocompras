@@ -31,29 +31,38 @@ public class CustomerService {
         if (customerRepository.findByEmail(customer.getEmail()) != null) {
             throw new RuntimeException("El correo electrónico ya está registrado");
         }
+
         LoginModel login = new LoginModel(customer.getEmail(), customer);
         customer.setLogin(login);
 
         customerRepository.save(customer);
 
-        String token = jwtService.generateToken(customer.getEmail(), Arrays.asList("ROLE_USER", "ROLE_ADMIN"));
+        // Determina los roles del usuario al registrarse
+        String role = determineRoles(customer.getEmail());
+
+        // Genera el token con los roles
+        String token = jwtService.generateToken(customer.getEmail(), Collections.singletonList(role));
 
         customer.setToken(token);
         customerRepository.save(customer);
 
-
         return "Registro exitoso. Token JWT almacenado en la base de datos.";
     }
+
+    // Método para determinar los roles del usuario al registrarse (puedes personalizarlo según tus necesidades)
+    private String determineRoles(String email) {
+        if (email.toLowerCase().endsWith("admin.com")) {
+            return "ROLE_ADMIN";
+        } else {
+            return "ROLE_USER";
+        }
+    }
+
     public boolean verificarContraseña(String contraseñaIngresada, String email) {
         CustomerModel customer = customerRepository.findByEmail(email);
-
-
-        // Verificar si el usuario existe y la contraseña coincide
         return customer != null && customer.getContrasena().equals(contraseñaIngresada);
     }
 }
-
-
 
 
 
