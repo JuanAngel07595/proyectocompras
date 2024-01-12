@@ -22,4 +22,6 @@ public class CustomerController {
             return ResponseEntity.badRequest().body("Error en el registro: " + e.getMessage());
         }
     }
+
+
 }

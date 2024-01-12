@@ -2,6 +2,8 @@ package com.logicfuse.logicfuse.models;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -34,10 +36,15 @@ public class CustomerModel {
     @Column(columnDefinition = "BOOLEAN")  // Campo para representar el boletín
     private boolean boletin;
 
+    @ElementCollection(targetClass = String.class)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "email"))
+    @Column(name = "role")
+    private Set<String> roles = new HashSet<>();
 
 
     @Column(columnDefinition = "VARCHAR(255)")
     private String token;
+
 
 
 
@@ -56,6 +63,11 @@ public class CustomerModel {
         // Establecer la fecha de registro al crear una nueva instancia
         this.fecha_registro = LocalDate.now();
     }
+
+    public CustomerModel(Set<String> roles) {
+        this.roles = roles;
+    }
+
     public CustomerModel(String numero_documento, String tipo_documento, String nombres, String contrasena, String apellidos, String email, String token, boolean terminos, boolean boletin) {
         this.numero_documento = numero_documento;
         this.tipo_documento = tipo_documento;
@@ -166,7 +178,13 @@ public class CustomerModel {
         this.token = token;
     }
 
+    public Set<String> getRoles() {
+        return roles;
+    }
 
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
 }
 
 

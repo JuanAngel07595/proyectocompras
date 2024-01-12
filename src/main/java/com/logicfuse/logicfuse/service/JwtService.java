@@ -1,13 +1,16 @@
 package com.logicfuse.logicfuse.service;
 
+import com.logicfuse.logicfuse.models.CustomerModel;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.Set;
 
 @Service
 public class JwtService {
@@ -17,10 +20,12 @@ public class JwtService {
 
     @Value("${jwt.expiration}")
     private Long expiration;
-
-    public String generateToken(String email) {
+@Autowired
+private CustomerModel customerModel;
+    public String generateToken(String email, Set<String> roles) {
         return Jwts.builder()
                 .setSubject(email)
+                .claim("roles", roles)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(SignatureAlgorithm.HS512, secretKey)
@@ -28,6 +33,14 @@ public class JwtService {
     }
 
     public String getEmailFromToken(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getSubject();
+    }
+
+    public String getRolesFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(token)

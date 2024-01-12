@@ -7,6 +7,9 @@ import com.logicfuse.logicfuse.repositories.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Set;
+
 @Service
 public class CustomerService {
 
@@ -27,8 +30,10 @@ public class CustomerService {
         customer.setLogin(login);
 
         customerRepository.save(customer);
+        customer.getRoles().add("USER");
+        customer.getRoles().add("ADMIN");
 
-        String token = jwtService.generateToken(customer.getEmail());
+        String token = jwtService.generateToken(customer.getEmail(), customer.getRoles());
         customer.setToken(token);
         customerRepository.save(customer);
 

@@ -1,5 +1,6 @@
 package com.logicfuse.logicfuse.controllers;
 
+import com.logicfuse.logicfuse.models.CustomerModel;
 import com.logicfuse.logicfuse.models.LoginModel;
 import com.logicfuse.logicfuse.service.CustomerService;
 import com.logicfuse.logicfuse.service.JwtService;
@@ -9,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/login")
@@ -47,11 +50,12 @@ public class LoginController {
             }
 
             // Devolver el token en lugar de un mensaje de éxito
-            String newToken = jwtService.generateToken(emailFromToken);
+            String newToken = jwtService.generateToken(customer.getEmail(), customer.getRoles());
             return ResponseEntity.ok(newToken);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error de autenticación: " + e.getMessage());
         }
+
     }
 
 
@@ -77,5 +81,36 @@ public class LoginController {
             e.printStackTrace(); // O utiliza un logger para registrar el error.
             return ResponseEntity.status(401).body("Error de autenticación: " + e.getMessage());
         }
+
+
     }
+    @Autowired
+    private CustomerModel customer;
+
+
+    @GetMapping("/ruta-protegida-admin")
+    public ResponseEntity<String> rutaProtegidaAdmin(@RequestHeader("Authorization") String authorizationHeader) {
+        try {
+            // Extraer el token del encabezado de autorización
+            String token = jwtService.extractToken(authorizationHeader);
+
+            // Obtener el email del token
+            String emailFromToken = jwtService.getEmailFromToken(token);
+
+            // Obtener los roles del token
+            Set<String> roles = Collections.singleton(jwtService.getRolesFromToken(token));
+
+            // Validar que el usuario tenga el rol "ADMIN"
+            if (roles.contains("ADMIN")) {
+                // El usuario tiene el rol necesario
+                return ResponseEntity.ok("Acceso concedido a la ruta protegida (ADMIN)");
+            } else {
+                throw new RuntimeException("Usuario no autorizado para acceder a esta ruta");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body("Error de autenticación: " + e.getMessage());
+        }
+    }
+
+
 }
