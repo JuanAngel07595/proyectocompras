@@ -17,25 +17,24 @@ public class LoginService {
 
     @Autowired
     private CustomerService customerService;
-    @Autowired
-    private CustomerModel customer;
 
     public String login(LoginModel login) {
         try {
             LoginModel loginModel = loginRepository.findByEmail(login.getemail());
 
-            if (loginModel != null && customerService.verificarContraseña(login.getCustomer().getContrasena(), loginModel.getemail())) {
-                String token = jwtService.generateToken(customer.getEmail(), customer.getRoles());
+            if (loginModel != null && customerService.verificarContraseña(loginModel.getCustomer().getContrasena(), loginModel.getemail())) {
+                String token = jwtService.generateToken(loginModel.getCustomer().getEmail(), loginModel.getCustomer().getRoles());
+                // Resto del código...
             } else {
                 throw new RuntimeException("Credenciales incorrectas");
             }
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Error en el login: " + e.getMessage());
-
         }
         return "Bienvenido";
     }
+
     public boolean isTokenValid(String token) {
         try {
             // Intenta validar el token
