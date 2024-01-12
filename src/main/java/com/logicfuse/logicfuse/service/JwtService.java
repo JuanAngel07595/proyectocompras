@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class JwtService {
@@ -19,26 +18,13 @@ public class JwtService {
     @Value("${jwt.expiration}")
     private Long expiration;
 
-
-    public String generateToken(String email, List<String> roles) {
+    public String generateToken(String email) {
         return Jwts.builder()
                 .setSubject(email)
-                .claim("ROLE_USER, ROLE_ADMIN", roles) // Añade los roles al token
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
-    }
-
-
-    public List<String> getRolesFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(token)
-                .getBody();
-
-        // Obtén los roles del token
-        return claims.get("roles", List.class);
     }
 
     public String getEmailFromToken(String token) {
@@ -75,30 +61,6 @@ public class JwtService {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
