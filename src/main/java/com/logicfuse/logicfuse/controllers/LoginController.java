@@ -50,14 +50,17 @@ public class LoginController {
                 throw new RuntimeException("Contraseña incorrecta");
             }
 
+            // Obtener la instancia correcta de CustomerModel
+            CustomerModel customer = customerService.getCustomerByEmail(emailFromToken);
+
             // Devolver el token en lugar de un mensaje de éxito
             String newToken = jwtService.generateToken(customer.getEmail(), customer.getRoles());
             return ResponseEntity.ok(newToken);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error de autenticación: " + e.getMessage());
         }
-
     }
+
 
 
     @GetMapping("/ruta-protegida")
@@ -85,8 +88,6 @@ public class LoginController {
 
 
     }
-    @Autowired
-    private CustomerModel customer;
 
 
     @GetMapping("/ruta-protegida-admin")

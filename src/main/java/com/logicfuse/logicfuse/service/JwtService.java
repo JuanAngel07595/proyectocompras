@@ -20,8 +20,6 @@ public class JwtService {
 
     @Value("${jwt.expiration}")
     private Long expiration;
-@Autowired
-private CustomerModel customerModel;
     public String generateToken(String email, Set<String> roles) {
         return Jwts.builder()
                 .setSubject(email)
