@@ -21,11 +21,16 @@ public class EmployeeController {
         ResponseDTO response = employeeService.getAllEmployees();
         return ResponseEntity.status(response.getCode()).body(response);
     }
+    @PostMapping   ("/register")
 
-    @PostMapping
-    public ResponseEntity<ResponseDTO> saveProduct(@Validated @RequestBody EmployeeModel employeeModel) {
-        ResponseDTO response = employeeService.saveEmployee(employeeModel);
-        return ResponseEntity.status(response.getCode()).body(response);
+    public ResponseEntity<String> registerEmploy(@Validated @RequestBody EmployeeModel employeeModel) {
+        try {
+            ResponseDTO response = employeeService.saveEmployee(employeeModel);
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error en el registro: " + e.getMessage());
+
+        }
+        return null;
     }
 
     @PutMapping("/{id}")
