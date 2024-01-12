@@ -23,8 +23,8 @@ public class CartModel {
 
     private LocalDateTime fecha_agregado;
 
-     @ManyToOne
-     private EmployeeModel empleados;
+    // @ManyToOne
+     //private EmployeeModel empleados;
 
      @ManyToOne
      @JoinColumn(name = "producto_id")
@@ -36,7 +36,7 @@ public class CartModel {
         this.precio = precio;
         this.subtotal = subtotal;
         this.fecha_agregado = fecha_agregado;
-        this.empleados = empleados;
+       // this.empleados = empleados;
         this.productos = productos;
     }
 
@@ -63,9 +63,9 @@ public class CartModel {
         this.fecha_agregado = fecha_agregado;
     }
 
-    public void setEmpleados(EmployeeModel empleados) {
-        this.empleados = empleados;
-    }
+  //  public void setEmpleados(EmployeeModel empleados) {
+    //    this.empleados = empleados;
+    //}
 
     public void setProductos(ProductModel productos) {
         this.productos = productos;
@@ -91,9 +91,9 @@ public class CartModel {
         return fecha_agregado;
     }
 
-    public EmployeeModel getEmpleados() {
-        return empleados;
-    }
+    //public EmployeeModel getEmpleados() {
+      //  return empleados;
+    //}
 
     public ProductModel getProductos() {
         return productos;

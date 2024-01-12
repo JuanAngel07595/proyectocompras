@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginService {
 
+
+    @Autowired
+    private EmployeeService employeeService;
     @Autowired
     private JwtService jwtService;
 
@@ -24,6 +27,12 @@ public class LoginService {
 
             if (loginModel != null && customerService.verificarContraseña(loginModel.getCustomer().getContrasena(), loginModel.getemail())) {
                 String token = jwtService.generateToken(loginModel.getCustomer().getEmail(), loginModel.getCustomer().getRoles());
+                // Resto del código...
+            } else {
+                throw new RuntimeException("Credenciales incorrectas");
+            }
+            if (loginModel != null && employeeService.verificarContraseña(loginModel.getEmployee().getContrasena(), loginModel.getemail())) {
+                String token = jwtService.generateToken(loginModel.getEmployee().getEmail(), loginModel.getEmployee().getRoles());
                 // Resto del código...
             } else {
                 throw new RuntimeException("Credenciales incorrectas");

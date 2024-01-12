@@ -21,7 +21,7 @@ public class EmployeeController {
         ResponseDTO response = employeeService.getAllEmployees();
         return ResponseEntity.status(response.getCode()).body(response);
     }
-    @PostMapping   ("/register")
+    @PostMapping ("/register")
 
     public ResponseEntity<String> registerEmploy(@Validated @RequestBody EmployeeModel employeeModel) {
         try {
