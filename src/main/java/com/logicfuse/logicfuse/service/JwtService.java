@@ -20,8 +20,6 @@ public class JwtService {
 
     @Value("${jwt.expiration}")
     private Long expiration;
-    @Autowired
-    private CustomerModel customerModel;
     public String generateToken(String email, Set<String> roles) {
         return Jwts.builder()
                 .setSubject(email)
@@ -40,12 +38,14 @@ public class JwtService {
         return claims.getSubject();
     }
 
-    public String getRolesFromToken(String token) {
+    public Set<String> getRolesFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(token)
                 .getBody();
-        return claims.getSubject();
+
+        // Supongamos que los roles están almacenados en el claim "roles"
+        return claims.get("roles", Set.class);
     }
     public boolean validateToken(String token) {
         try {
@@ -74,6 +74,17 @@ public class JwtService {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
