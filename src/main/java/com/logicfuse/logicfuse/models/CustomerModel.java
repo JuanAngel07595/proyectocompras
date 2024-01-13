@@ -54,8 +54,7 @@ public class CustomerModel {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "email", referencedColumnName = "email", insertable = false, updatable = false)
-    private LoginModel customerl;
-
+    private LoginModel login;
 
 
     // Otros campos
@@ -67,10 +66,6 @@ public class CustomerModel {
 
     public CustomerModel(Set<String> roles) {
         this.roles = roles;
-    }
-
-    public CustomerModel(LoginModel customerl) {
-        this.customerl = customerl;
     }
 
     public CustomerModel(String numero_documento, String tipo_documento, String nombres, String contrasena, String apellidos, String email, String token, boolean terminos, boolean boletin) {
@@ -85,6 +80,9 @@ public class CustomerModel {
         this.terminos = terminos;
         this.boletin = boletin;
         this.token = token;
+
+        LoginModel login = new LoginModel(email, this);
+        this.login = login;
 
     }
 
@@ -109,14 +107,6 @@ public class CustomerModel {
 
     public String getNombres() {
         return nombres;
-    }
-
-    public LoginModel getCustomerl() {
-        return customerl;
-    }
-
-    public void setCustomerl(LoginModel customerl) {
-        this.customerl = customerl;
     }
 
     public void setNombres(String nombres) {
@@ -172,8 +162,13 @@ public class CustomerModel {
     }
 
 
+    public LoginModel getLogin() {
+        return login;
+    }
 
-
+    public void setLogin(LoginModel login) {
+        this.login = login;
+    }
 
     public String getToken() {
         return token;
@@ -191,6 +186,16 @@ public class CustomerModel {
         this.roles = roles;
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

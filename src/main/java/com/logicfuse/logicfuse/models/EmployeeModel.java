@@ -44,23 +44,22 @@ public class EmployeeModel {
     private Set<String> roles = new HashSet<>();
 
 
-    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "empleados", cascade = CascadeType.ALL)
-    //@JsonIgnore
-    //private List<CartModel> carritos;
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "empleados", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<CartModel> carritos;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "email", referencedColumnName = "email", insertable = false, updatable = false)
-    private LoginModel employeel;
+    private LoginModel login;
 
 
     public EmployeeModel() {
 
     }
 
-    public EmployeeModel(Set<String> roles, LoginModel employeel) {
+    public EmployeeModel(Set<String> roles, LoginModel login) {
         this.roles = roles;
-        this.employeel = employeel;
+        this.login = login;
     }
 
     public EmployeeModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String cargo, LocalDateTime fecha_registro, String email, String contrasena, String token, List<CartModel> carritos) {
@@ -72,20 +71,12 @@ public class EmployeeModel {
         this.fecha_registro = fecha_registro;
         this.email = email;
         this.contrasena = contrasena;
-      //  this.carritos = carritos;
+        this.carritos = carritos;
         this.token = token;
     }
 
     public String getNumero_documento() {
         return numero_documento;
-    }
-
-    public LoginModel getEmployeel() {
-        return employeel;
-    }
-
-    public void setEmployeel(LoginModel employeel) {
-        this.employeel = employeel;
     }
 
     public void setNumero_documento(String numero_documento) {
@@ -149,11 +140,16 @@ public class EmployeeModel {
         this.contrasena = contrasena;
     }
 
-    //public List<CartModel> getCarritos() {
-      //  return carritos;
-    //}
+    public List<CartModel> getCarritos() {
+        return carritos;
+    }
+    public LoginModel getLogin() {
+        return login;
+    }
 
-
+    public void setLogin(LoginModel login) {
+        this.login = login;
+    }
 
     public Set<String> getRoles() {
         return roles;
@@ -171,9 +167,23 @@ public class EmployeeModel {
         this.token = token;
     }
 
-    //public void setCarritos(List<CartModel> carritos) {
-      //  this.carritos = carritos;
+    public void setCarritos(List<CartModel> carritos) {
+        this.carritos = carritos;
 
 
-    //}
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

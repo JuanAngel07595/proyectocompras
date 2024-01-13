@@ -27,7 +27,7 @@ public class CustomerService {
             throw new RuntimeException("El correo electrónico ya está registrado");
         }
         LoginModel login = new LoginModel(customer.getEmail(), customer);
-        customer.setCustomerl(login);
+        customer.setLogin(login);
 
         customerRepository.save(customer);
         customer.getRoles().add("USER");
@@ -57,6 +57,85 @@ public class CustomerService {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
