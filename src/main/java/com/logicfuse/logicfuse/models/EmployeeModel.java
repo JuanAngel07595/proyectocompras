@@ -30,7 +30,7 @@ public class EmployeeModel {
     private LocalDateTime fecha_registro;
 
     @Column(columnDefinition = "VARCHAR(100)")
-    private String correo_electronico;
+    private String email;
 
     @Column(columnDefinition = "VARCHAR(255)")
     private String contrasena;
@@ -62,14 +62,14 @@ public class EmployeeModel {
         this.login = login;
     }
 
-    public EmployeeModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String cargo, LocalDateTime fecha_registro, String correo_electronico, String contrasena, String token, List<CartModel> carritos) {
+    public EmployeeModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String cargo, LocalDateTime fecha_registro, String email, String contrasena, String token, List<CartModel> carritos) {
         this.numero_documento = numero_documento;
         this.tipo_documento = tipo_documento;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.cargo = cargo;
         this.fecha_registro = fecha_registro;
-        this.correo_electronico = correo_electronico;
+        this.email = email;
         this.contrasena = contrasena;
         this.carritos = carritos;
         this.token = token;
@@ -124,12 +124,12 @@ public class EmployeeModel {
         this.fecha_registro = fecha_registro;
     }
 
-    public String getCorreo_electronico() {
-        return correo_electronico;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCorreo_electronico(String correo_electronico) {
-        this.correo_electronico = correo_electronico;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getContrasena() {

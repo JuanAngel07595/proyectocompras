@@ -18,6 +18,9 @@ public class LoginModel {
     private CustomerModel customer;
 
 
+    @OneToOne(mappedBy = "login", cascade = CascadeType.ALL)
+    private EmployeeModel employee;
+
     public String getemail() {
         return email;
     }
@@ -36,6 +39,11 @@ public class LoginModel {
     public LoginModel(String email, CustomerModel customer) {
         this.email = email;
         this.customer = customer;
+    }
+
+    public LoginModel(String email, EmployeeModel employee) {
+        this.email = email;
+        this.employee = employee;
     }
 
     public LoginModel() {

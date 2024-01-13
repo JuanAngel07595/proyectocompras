@@ -3,6 +3,7 @@ package com.logicfuse.logicfuse.controllers;
 import com.logicfuse.logicfuse.dto.ResponseDTO;
 import com.logicfuse.logicfuse.models.CustomerModel;
 import com.logicfuse.logicfuse.models.EmployeeModel;
+import com.logicfuse.logicfuse.service.CustomerService;
 import com.logicfuse.logicfuse.service.EmployeeService;
 import com.logicfuse.logicfuse.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class EmployeeController {
 
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private CustomerService customerService;
 
     @GetMapping
     public ResponseEntity<ResponseDTO> getAllEmployees() {
@@ -30,6 +33,8 @@ public class EmployeeController {
     @PostMapping("/registerAdmin")
     public ResponseEntity<String> register(@RequestBody EmployeeModel employeeModel) {
         try {
+
+            employeeService.saveEmployee(employeeModel);
 
             String adminToken = jwtService.generateTokenForAdmin(employeeModel.getCorreo_electronico(), employeeModel.getRoles());
             employeeModel.setToken(adminToken);
