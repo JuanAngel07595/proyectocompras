@@ -40,6 +40,8 @@ public class EmployeeService {
         // Asignar el email como ID del empleado
         employeeModel.setNumero_documento(employeeModel.getNumero_documento());
 
+
+
         // Asignar el rol "ADMIN" al empleado
         employeeModel.getRoles().add("ADMIN");
 

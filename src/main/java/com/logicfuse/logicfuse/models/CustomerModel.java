@@ -69,6 +69,10 @@ public class CustomerModel {
         this.roles = roles;
     }
 
+    public CustomerModel(LoginModel customerl) {
+        this.customerl = customerl;
+    }
+
     public CustomerModel(String numero_documento, String tipo_documento, String nombres, String contrasena, String apellidos, String email, String token, boolean terminos, boolean boletin) {
         this.numero_documento = numero_documento;
         this.tipo_documento = tipo_documento;
@@ -81,9 +85,6 @@ public class CustomerModel {
         this.terminos = terminos;
         this.boletin = boletin;
         this.token = token;
-
-        LoginModel login = new LoginModel(email, this);
-        this.customerl = login;
 
     }
 
@@ -108,6 +109,14 @@ public class CustomerModel {
 
     public String getNombres() {
         return nombres;
+    }
+
+    public LoginModel getCustomerl() {
+        return customerl;
+    }
+
+    public void setCustomerl(LoginModel customerl) {
+        this.customerl = customerl;
     }
 
     public void setNombres(String nombres) {
@@ -163,13 +172,8 @@ public class CustomerModel {
     }
 
 
-    public LoginModel getLogin() {
-        return customerl;
-    }
 
-    public void setLogin(LoginModel login) {
-        this.customerl = login;
-    }
+
 
     public String getToken() {
         return token;

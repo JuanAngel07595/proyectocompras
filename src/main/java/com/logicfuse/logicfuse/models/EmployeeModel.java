@@ -58,9 +58,9 @@ public class EmployeeModel {
 
     }
 
-    public EmployeeModel(Set<String> roles, LoginModel login) {
+    public EmployeeModel(Set<String> roles, LoginModel employeel) {
         this.roles = roles;
-        this.employeel = login;
+        this.employeel = employeel;
     }
 
     public EmployeeModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String cargo, LocalDateTime fecha_registro, String email, String contrasena, String token, List<CartModel> carritos) {
@@ -78,6 +78,14 @@ public class EmployeeModel {
 
     public String getNumero_documento() {
         return numero_documento;
+    }
+
+    public LoginModel getEmployeel() {
+        return employeel;
+    }
+
+    public void setEmployeel(LoginModel employeel) {
+        this.employeel = employeel;
     }
 
     public void setNumero_documento(String numero_documento) {
@@ -144,13 +152,8 @@ public class EmployeeModel {
     //public List<CartModel> getCarritos() {
       //  return carritos;
     //}
-    public LoginModel getLogin() {
-        return employeel;
-    }
 
-    public void setLogin(LoginModel login) {
-        this.employeel = login;
-    }
+
 
     public Set<String> getRoles() {
         return roles;
