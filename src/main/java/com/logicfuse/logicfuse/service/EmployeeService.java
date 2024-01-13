@@ -2,7 +2,6 @@ package com.logicfuse.logicfuse.service;
 
 
 import com.logicfuse.logicfuse.dto.ResponseDTO;
-import com.logicfuse.logicfuse.models.CustomerModel;
 import com.logicfuse.logicfuse.models.EmployeeModel;
 import com.logicfuse.logicfuse.models.LoginModel;
 import com.logicfuse.logicfuse.repositories.EmployeeRepository;

@@ -1,7 +1,6 @@
 package com.logicfuse.logicfuse.controllers;
 
 import com.logicfuse.logicfuse.models.CustomerModel;
-import com.logicfuse.logicfuse.models.LoginModel;
 import com.logicfuse.logicfuse.service.CustomerService;
 import com.logicfuse.logicfuse.service.JwtService;
 import com.logicfuse.logicfuse.service.LoginService;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;

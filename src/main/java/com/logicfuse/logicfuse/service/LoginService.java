@@ -1,6 +1,5 @@
 package com.logicfuse.logicfuse.service;
 
-import com.logicfuse.logicfuse.models.CustomerModel;
 import com.logicfuse.logicfuse.models.LoginModel;
 import com.logicfuse.logicfuse.repositories.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,14 +1,10 @@
 package com.logicfuse.logicfuse.service;
 
-import com.logicfuse.logicfuse.models.CustomerModel;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.security.Key;
 import java.util.Date;
 import java.util.Set;
 
