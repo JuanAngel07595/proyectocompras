@@ -23,7 +23,7 @@ public class EmployeeController {
     }
     @PostMapping ("/register")
 
-    public ResponseEntity<String> registerEmploy(@Validated @RequestBody EmployeeModel employeeModel) {
+    public ResponseEntity<String> registerEmploy(@RequestBody EmployeeModel employeeModel) {
         try {
             ResponseDTO response = employeeService.saveEmployee(employeeModel);
         }catch (Exception e) {
