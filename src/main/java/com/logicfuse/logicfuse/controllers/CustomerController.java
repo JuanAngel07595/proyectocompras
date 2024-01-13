@@ -13,7 +13,7 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @PostMapping(value = "/register", consumes = "application/json;charset=UTF-8")
+    @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody CustomerModel customer) {
         try {
             String response = customerService.register(customer);

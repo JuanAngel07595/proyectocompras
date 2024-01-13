@@ -1,6 +1,7 @@
 package com.logicfuse.logicfuse.controllers;
 
 import com.logicfuse.logicfuse.models.CustomerModel;
+import com.logicfuse.logicfuse.models.LoginModel;
 import com.logicfuse.logicfuse.service.CustomerService;
 import com.logicfuse.logicfuse.service.JwtService;
 import com.logicfuse.logicfuse.service.LoginService;
@@ -9,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -48,17 +49,14 @@ public class LoginController {
                 throw new RuntimeException("Contraseña incorrecta");
             }
 
-            // Obtener la instancia correcta de CustomerModel
-            CustomerModel customer = customerService.getCustomerByEmail(emailFromToken);
-
             // Devolver el token en lugar de un mensaje de éxito
             String newToken = jwtService.generateToken(customer.getEmail(), customer.getRoles());
             return ResponseEntity.ok(newToken);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error de autenticación: " + e.getMessage());
         }
-    }
 
+    }
 
 
     @GetMapping("/ruta-protegida")
@@ -86,6 +84,8 @@ public class LoginController {
 
 
     }
+    @Autowired
+    private CustomerModel customer;
 
 
     @GetMapping("/ruta-protegida-admin")
@@ -98,7 +98,7 @@ public class LoginController {
             String emailFromToken = jwtService.getEmailFromToken(token);
 
             // Obtener los roles del token
-            Set<String> roles = new HashSet<>(jwtService.getRolesFromToken(token));
+            Set<String> roles = Collections.singleton(jwtService.getRolesFromToken(token));
 
             // Validar que el usuario tenga el rol "ADMIN"
             if (roles.contains("ADMIN")) {
@@ -111,7 +111,6 @@ public class LoginController {
             return ResponseEntity.status(401).body("Error de autenticación: " + e.getMessage());
         }
     }
-
 
 
 }

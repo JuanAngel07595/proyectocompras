@@ -7,6 +7,9 @@ import com.logicfuse.logicfuse.repositories.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Set;
+
 @Service
 public class CustomerService {
 
@@ -28,6 +31,7 @@ public class CustomerService {
 
         customerRepository.save(customer);
         customer.getRoles().add("USER");
+        customer.getRoles().add("ADMIN");
 
         String token = jwtService.generateToken(customer.getEmail(), customer.getRoles());
         customer.setToken(token);
@@ -42,18 +46,50 @@ public class CustomerService {
         // Verificar si el usuario existe y la contraseña coincide
         return customer != null && customer.getContrasena().equals(contraseñaIngresada);
     }
+}
 
-        // ... Otros métodos y anotaciones ...
 
-        public CustomerModel getCustomerByEmail(String email) {
-            try {
-                return customerRepository.findByEmail(email);
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException("Error al obtener el cliente por correo electrónico: " + e.getMessage());
-            }
-        }
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
