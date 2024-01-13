@@ -41,6 +41,8 @@ LoginController {
 
             String emailFromBody = credentials.get("email");
             String passwordFromBody = credentials.get("contrasena");
+
+
             Set<String> roles = jwtService.getRolesFromToken(token);
 
             if (roles.contains("ADMIN")) {

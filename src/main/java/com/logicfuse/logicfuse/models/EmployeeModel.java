@@ -124,12 +124,12 @@ public class EmployeeModel {
         this.fecha_registro = fecha_registro;
     }
 
-    public String getEmail() {
+    public String getEmailadmin() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmailadmin(String emailadmin) {
+        this.email = emailadmin;
     }
 
     public String getContrasena() {
