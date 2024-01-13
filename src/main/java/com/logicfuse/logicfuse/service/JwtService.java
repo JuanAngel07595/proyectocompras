@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -57,8 +59,12 @@ public class JwtService {
                 .getBody();
 
         // Supongamos que los roles están almacenados en el claim "roles"
-        return claims.get("roles", Set.class);
+        List<String> rolesList = claims.get("roles", List.class);
+
+        // Convierte la lista a un conjunto (Set)
+        return new HashSet<>(rolesList);
     }
+
     public boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
