@@ -9,6 +9,9 @@ import com.logicfuse.logicfuse.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 public class EmployeeService {
 
@@ -40,8 +43,9 @@ public class EmployeeService {
         // Asignar el email como ID del empleado
         employeeModel.setNumero_documento(employeeModel.getNumero_documento());
 
-        // Asignar el rol "ADMIN" al empleado
-        employeeModel.getRoles().add("ADMIN");
+        Set<String> roles = new HashSet<>();
+        roles.add("ADMIN");
+        employeeModel.setRoles(roles);
 
         // Resto de la lógica (si es necesario)...
 

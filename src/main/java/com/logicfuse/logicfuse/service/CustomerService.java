@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -30,7 +31,12 @@ public class CustomerService {
         customer.setLogin(login);
 
         customerRepository.save(customer);
-        customer.getRoles().add("USER");
+
+
+        Set<String> roles = new HashSet<>();
+        roles.add("USER");
+        customer.setRoles(roles);
+
 
         String token = jwtService.generateToken(customer.getEmail(), customer.getRoles());
         customer.setToken(token);
