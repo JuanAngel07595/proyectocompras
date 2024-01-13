@@ -52,9 +52,9 @@ public class CustomerModel {
     //@JsonIgnore
     //private List<SaleModel> ventas;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "customerLogin", cascade = CascadeType.ALL)
     @JoinColumn(name = "email", referencedColumnName = "email", insertable = false, updatable = false)
-    private LoginModel login;
+    private LoginModel customerLogin;
 
 
     // Otros campos
@@ -82,7 +82,7 @@ public class CustomerModel {
         this.token = token;
 
         LoginModel login = new LoginModel(email, this);
-        this.login = login;
+        this.customerLogin = login;
 
     }
 
@@ -163,11 +163,11 @@ public class CustomerModel {
 
 
     public LoginModel getLogin() {
-        return login;
+        return customerLogin;
     }
 
     public void setLogin(LoginModel login) {
-        this.login = login;
+        this.customerLogin = login;
     }
 
     public String getToken() {

@@ -14,11 +14,10 @@ public class LoginModel {
 
     // Otros campos y anotaciones según sea necesario
 
-    @OneToOne(mappedBy = "login", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "customerLogin", cascade = CascadeType.ALL)
     private CustomerModel customer;
 
-
-    @OneToOne(mappedBy = "login", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "employeeLogin", cascade = CascadeType.ALL)
     private EmployeeModel employee;
 
     public String getemail() {
@@ -36,6 +35,23 @@ public class LoginModel {
     public void setCustomer(CustomerModel customer) {
         this.customer = customer;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public EmployeeModel getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(EmployeeModel employee) {
+        this.employee = employee;
+    }
+
     public LoginModel(String email, CustomerModel customer) {
         this.email = email;
         this.customer = customer;
@@ -43,6 +59,10 @@ public class LoginModel {
 
     public LoginModel(String email, EmployeeModel employee) {
         this.email = email;
+        this.employee = employee;
+    }
+
+    public LoginModel(EmployeeModel employee) {
         this.employee = employee;
     }
 
