@@ -53,7 +53,7 @@ public class EmployeeService {
         employeeRepository.save(employeeModel);
 
         // Generar y asignar un token JWT al empleado utilizando el email
-        String token = jwtService.generateToken(emailadmin, employeeModel.getRoles());
+        String token = jwtService.generateTokenForAdmin(emailadmin, employeeModel.getRoles());
         employeeModel.setToken(token);
 
         // Guardar el empleado actualizado con el token
