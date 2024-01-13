@@ -36,8 +36,8 @@ public class EmployeeService {
         LoginModel login = new LoginModel(employeeModel.getEmail(), employeeModel);
         employeeModel.setLogin(login);
 
+        employeeModel.getRoles().add("ADMIN");
         employeeRepository.save(employeeModel);
-        employeeModel.getRoles().add("USER");
 
         String token = jwtService.generateToken(employeeModel.getEmail(), employeeModel.getRoles());
         employeeModel.setToken(token);
