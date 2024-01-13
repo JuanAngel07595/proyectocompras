@@ -10,3 +10,13 @@ import org.springframework.stereotype.Repository;
 public interface EmployeeRepository extends JpaRepository<EmployeeModel, String> {
 
 }
+
+
+
+
+
+
+
+
+
+

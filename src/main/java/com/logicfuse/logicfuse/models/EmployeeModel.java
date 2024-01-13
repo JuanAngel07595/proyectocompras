@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "employees")
@@ -25,9 +27,6 @@ public class EmployeeModel {
     @Column(columnDefinition = "VARCHAR(50)")
     private String cargo;
 
-    @Column(columnDefinition = "VARCHAR(20)")
-    private String rol;
-
     private LocalDateTime fecha_registro;
 
     @Column(columnDefinition = "VARCHAR(100)")
@@ -36,21 +35,36 @@ public class EmployeeModel {
     @Column(columnDefinition = "VARCHAR(255)")
     private String contrasena;
 
+    @ElementCollection(targetClass = String.class)
+    @CollectionTable(name = "employee_roles", joinColumns = @JoinColumn(name = "email"))
+    @Column(name = "role")
+    private Set<String> roles = new HashSet<>();
+
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "empleados", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<CartModel> carritos;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "email", referencedColumnName = "email", insertable = false, updatable = false)
+    private LoginModel login;
+
 
     public EmployeeModel() {
 
     }
 
-    public EmployeeModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String cargo, String rol, LocalDateTime fecha_registro, String correo_electronico, String contrasena, List<CartModel> carritos) {
+    public EmployeeModel(Set<String> roles, LoginModel login) {
+        this.roles = roles;
+        this.login = login;
+    }
+
+    public EmployeeModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String cargo, LocalDateTime fecha_registro, String correo_electronico, String contrasena, List<CartModel> carritos) {
         this.numero_documento = numero_documento;
         this.tipo_documento = tipo_documento;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.cargo = cargo;
-        this.rol = rol;
         this.fecha_registro = fecha_registro;
         this.correo_electronico = correo_electronico;
         this.contrasena = contrasena;
@@ -97,13 +111,6 @@ public class EmployeeModel {
         this.cargo = cargo;
     }
 
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
 
     public LocalDateTime getFecha_registro() {
         return fecha_registro;
@@ -132,8 +139,25 @@ public class EmployeeModel {
     public List<CartModel> getCarritos() {
         return carritos;
     }
+    public LoginModel getLogin() {
+        return login;
+    }
+
+    public void setLogin(LoginModel login) {
+        this.login = login;
+    }
+
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
 
     public void setCarritos(List<CartModel> carritos) {
         this.carritos = carritos;
+
+
     }
 }

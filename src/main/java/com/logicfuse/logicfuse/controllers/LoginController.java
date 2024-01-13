@@ -17,7 +17,8 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/login")
-public class LoginController {
+public class
+LoginController {
 
     @Autowired
     private LoginService loginService;
@@ -31,6 +32,7 @@ public class LoginController {
 
 
 
+
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestHeader("Authorization") String authorizationHeader, @RequestBody Map<String, String> credentials) {
         try {
@@ -39,6 +41,12 @@ public class LoginController {
 
             String emailFromBody = credentials.get("email");
             String passwordFromBody = credentials.get("contrasena");
+            Set<String> roles = jwtService.getRolesFromToken(token);
+
+            if (roles.contains("ADMIN")) {
+                // El usuario tiene el rol necesario (ADMIN)
+                jwtService.getRolesFromToken(token).add("ADMIN");
+            }
 
             // Verificar que el correo del token coincida con el correo del cuerpo
             if (!emailFromToken.equals(emailFromBody)) {
