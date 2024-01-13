@@ -31,7 +31,6 @@ public class CustomerService {
 
         customerRepository.save(customer);
         customer.getRoles().add("USER");
-        customer.getRoles().add("ADMIN");
 
         String token = jwtService.generateToken(customer.getEmail(), customer.getRoles());
         customer.setToken(token);
