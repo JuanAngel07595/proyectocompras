@@ -34,9 +34,9 @@ public class EmployeeController {
     public ResponseEntity<String> register(@RequestBody EmployeeModel employeeModel) {
         try {
 
-            employeeService.saveEmployee(employeeModel);
+            employeeService.register(employeeModel);
 
-            String adminToken = jwtService.generateTokenForAdmin(employeeModel.getCorreo_electronico(), employeeModel.getRoles());
+            String adminToken = jwtService.generateTokenForAdmin(employeeModel.getEmail(), employeeModel.getRoles());
             employeeModel.setToken(adminToken);
 
             return ResponseEntity.ok(adminToken);
