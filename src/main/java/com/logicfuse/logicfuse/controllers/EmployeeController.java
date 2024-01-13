@@ -1,6 +1,7 @@
 package com.logicfuse.logicfuse.controllers;
 
 import com.logicfuse.logicfuse.dto.ResponseDTO;
+import com.logicfuse.logicfuse.models.CustomerModel;
 import com.logicfuse.logicfuse.models.EmployeeModel;
 import com.logicfuse.logicfuse.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +22,15 @@ public class EmployeeController {
         ResponseDTO response = employeeService.getAllEmployees();
         return ResponseEntity.status(response.getCode()).body(response);
     }
-    @PostMapping ("/register")
-
-    public ResponseEntity<String> registerEmploy(@RequestBody EmployeeModel employeeModel) {
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody EmployeeModel employee) {
         try {
-            ResponseDTO response = employeeService.saveEmployee(employeeModel);
-        }catch (Exception e) {
+            String response = employeeService.register(employee);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error en el registro: " + e.getMessage());
-
         }
-        return null;
     }
-
     @PutMapping("/{id}")
        public ResponseEntity<ResponseDTO> updateProduct(@Validated @PathVariable String numero_documento, @RequestBody EmployeeModel employeeModel) {
     employeeModel.setNumero_documento(numero_documento);
