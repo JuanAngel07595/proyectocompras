@@ -48,9 +48,10 @@ public class EmployeeModel {
     //@JsonIgnore
     //private List<CartModel> carritos;
 
-    @OneToOne(mappedBy = "employeeLogin", cascade = CascadeType.ALL)
+
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "email", referencedColumnName = "email", insertable = false, updatable = false)
-    private LoginModel employeeLogin;
+    private LoginModel employeel;
 
 
     public EmployeeModel() {
@@ -59,7 +60,7 @@ public class EmployeeModel {
 
     public EmployeeModel(Set<String> roles, LoginModel login) {
         this.roles = roles;
-        this.employeeLogin = login;
+        this.employeel = login;
     }
 
     public EmployeeModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String cargo, LocalDateTime fecha_registro, String email, String contrasena, String token, List<CartModel> carritos) {
@@ -144,11 +145,11 @@ public class EmployeeModel {
       //  return carritos;
     //}
     public LoginModel getLogin() {
-        return employeeLogin;
+        return employeel;
     }
 
     public void setLogin(LoginModel login) {
-        this.employeeLogin = login;
+        this.employeel = login;
     }
 
     public Set<String> getRoles() {
