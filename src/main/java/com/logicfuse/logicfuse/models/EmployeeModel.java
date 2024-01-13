@@ -44,12 +44,12 @@ public class EmployeeModel {
     private Set<String> roles = new HashSet<>();
 
 
-   // @OneToMany(fetch = FetchType.LAZY, mappedBy = "empleados", cascade = CascadeType.ALL)
+    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "empleados", cascade = CascadeType.ALL)
     //@JsonIgnore
     //private List<CartModel> carritos;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "email", referencedColumnName = "email")
+    @JoinColumn(name = "email", referencedColumnName = "email", insertable = false, updatable = false)
     private LoginModel login;
 
 
@@ -71,7 +71,7 @@ public class EmployeeModel {
         this.fecha_registro = fecha_registro;
         this.email = email;
         this.contrasena = contrasena;
-       // this.carritos = carritos;
+      //  this.carritos = carritos;
         this.token = token;
     }
 
@@ -140,9 +140,9 @@ public class EmployeeModel {
         this.contrasena = contrasena;
     }
 
-   // public List<CartModel> getCarritos() {
-   //     return carritos;
-   // }
+    //public List<CartModel> getCarritos() {
+      //  return carritos;
+    //}
     public LoginModel getLogin() {
         return login;
     }
@@ -168,7 +168,7 @@ public class EmployeeModel {
     }
 
     //public void setCarritos(List<CartModel> carritos) {
-    //    this.carritos = carritos;
+      //  this.carritos = carritos;
 
 
     //}
