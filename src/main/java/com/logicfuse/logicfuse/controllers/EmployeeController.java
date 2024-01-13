@@ -22,7 +22,7 @@ public class EmployeeController {
         ResponseDTO response = employeeService.getAllEmployees();
         return ResponseEntity.status(response.getCode()).body(response);
     }
-    @PostMapping("/register")
+    @PostMapping(value = "/register", consumes = "application/json;charset=UTF-8")
     public ResponseEntity<String> register(@RequestBody EmployeeModel employee) {
         try {
             String response = employeeService.register(employee);
