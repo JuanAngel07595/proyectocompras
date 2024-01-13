@@ -124,11 +124,11 @@ public class EmployeeModel {
         this.fecha_registro = fecha_registro;
     }
 
-    public String getEmail() {
+    public String getEmailadmin() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmailadmin(String email) {
         this.email = email;
     }
 

@@ -36,7 +36,7 @@ public class EmployeeController {
 
             employeeService.register(employeeModel);
 
-            String adminToken = jwtService.generateTokenForAdmin(employeeModel.getEmail(), employeeModel.getRoles());
+            String adminToken = jwtService.generateTokenForAdmin(employeeModel.getEmailadmin(), employeeModel.getRoles());
             employeeModel.setToken(adminToken);
 
             return ResponseEntity.ok(adminToken);
