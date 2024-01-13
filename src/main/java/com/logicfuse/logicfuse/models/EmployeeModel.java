@@ -35,6 +35,9 @@ public class EmployeeModel {
     @Column(columnDefinition = "VARCHAR(255)")
     private String contrasena;
 
+    @Column(columnDefinition = "VARCHAR(255)")
+    private String token;
+
     @ElementCollection(targetClass = String.class)
     @CollectionTable(name = "employee_roles", joinColumns = @JoinColumn(name = "email"))
     @Column(name = "role")
@@ -59,7 +62,7 @@ public class EmployeeModel {
         this.login = login;
     }
 
-    public EmployeeModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String cargo, LocalDateTime fecha_registro, String correo_electronico, String contrasena, List<CartModel> carritos) {
+    public EmployeeModel(String numero_documento, String tipo_documento, String nombres, String apellidos, String cargo, LocalDateTime fecha_registro, String correo_electronico, String contrasena, String token, List<CartModel> carritos) {
         this.numero_documento = numero_documento;
         this.tipo_documento = tipo_documento;
         this.nombres = nombres;
@@ -69,6 +72,7 @@ public class EmployeeModel {
         this.correo_electronico = correo_electronico;
         this.contrasena = contrasena;
         this.carritos = carritos;
+        this.token = token;
     }
 
     public String getNumero_documento() {
@@ -153,6 +157,14 @@ public class EmployeeModel {
 
     public void setRoles(Set<String> roles) {
         this.roles = roles;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public void setCarritos(List<CartModel> carritos) {

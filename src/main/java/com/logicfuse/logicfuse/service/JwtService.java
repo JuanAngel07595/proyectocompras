@@ -29,6 +29,18 @@ public class JwtService {
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
     }
+    public String generateTokenForAdmin(String email, Set<String> roles) {
+        roles.add("ADMIN");  // Agregar el rol "ADMIN" al conjunto de roles
+
+        return Jwts.builder()
+                .setSubject(email)
+                .claim("roles", roles)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(SignatureAlgorithm.HS512, secretKey)
+                .compact();
+    }
+
 
     public String getEmailFromToken(String token) {
         Claims claims = Jwts.parser()
