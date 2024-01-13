@@ -32,11 +32,10 @@ public class JwtService {
                 .compact();
     }
     public String generateTokenForAdmin(String email, Set<String> roles) {
-        roles.add("ADMIN");  // Agregar el rol "ADMIN" al conjunto de roles
-
         return Jwts.builder()
                 .setSubject(email)
                 .claim("roles", roles)
+                .claim("email", email)  // Agrega el claim "email" al token
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(SignatureAlgorithm.HS512, secretKey)
