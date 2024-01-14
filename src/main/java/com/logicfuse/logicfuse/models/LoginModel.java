@@ -46,6 +46,14 @@ public class LoginModel {
         this.employee = employee;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public EmployeeModel getEmployee() {
         return employee;
     }
