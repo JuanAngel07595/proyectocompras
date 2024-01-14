@@ -46,6 +46,14 @@ public class LoginModel {
         this.employee = employee;
     }
 
+    public EmployeeModel getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(EmployeeModel employee) {
+        this.employee = employee;
+    }
+
     public LoginModel() {
     }
 }
