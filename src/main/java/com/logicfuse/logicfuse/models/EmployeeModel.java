@@ -29,7 +29,7 @@ public class EmployeeModel {
 
     private LocalDateTime fecha_registro;
 
-    @Column(columnDefinition = "VARCHAR(100)")
+    @Column(name = "email", columnDefinition = "VARCHAR(100)")
     private String email;
 
     @Column(columnDefinition = "VARCHAR(255)")
