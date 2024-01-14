@@ -8,6 +8,7 @@ import com.logicfuse.logicfuse.models.LoginModel;
 import com.logicfuse.logicfuse.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,10 +35,16 @@ public class EmployeeService {
 
     public String register(EmployeeModel employeeModel) {
 
+
+        employeeModel.setEmailadmin(employeeModel.getEmailadmin());
+
         // Verificar si ya existe un empleado con el mismo email
         if (employeeRepository.findByEmail(employeeModel.getEmailadmin()) != null) {
             throw new RuntimeException("El correo electrónico ya está registrado");
         }
+
+        LoginModel login = new LoginModel(employeeModel.getEmailadmin(), employeeModel);
+        employeeModel.setLogin(login);
 
         // Asignar el email como ID del empleado
         employeeModel.setNumero_documento(employeeModel.getNumero_documento());
@@ -47,6 +54,7 @@ public class EmployeeService {
         employeeModel.setRoles(roles);
 
         // Resto de la lógica (si es necesario)...
+
 
         // Guardar el empleado en la base de datos
         employeeRepository.save(employeeModel);
