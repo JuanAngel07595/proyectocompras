@@ -33,10 +33,9 @@ public class EmployeeController {
     @PostMapping("/registerAdmin")
     public ResponseEntity<String> register(@RequestBody EmployeeModel employeeModel) {
         try {
-
             employeeService.register(employeeModel);
 
-            String adminToken = jwtService.generateTokenForAdmin(employeeModel.getEmailadmin(), employeeModel.getRoles());
+            String adminToken = jwtService.generateTokenForAdmin(employeeModel.getEmail(), employeeModel.getRoles());
             employeeModel.setToken(adminToken);
 
             return ResponseEntity.ok(adminToken);
