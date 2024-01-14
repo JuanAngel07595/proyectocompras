@@ -36,8 +36,6 @@ public class EmployeeService {
     public String register(EmployeeModel employeeModel) {
 
 
-        employeeModel.setEmailadmin(employeeModel.getEmailadmin());
-
         // Verificar si ya existe un empleado con el mismo email
         if (employeeRepository.findByEmail(employeeModel.getEmailadmin()) != null) {
             throw new RuntimeException("El correo electrónico ya está registrado");
