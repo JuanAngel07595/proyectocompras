@@ -46,8 +46,6 @@ public class EmployeeService {
         // Asignar el email como ID del empleado
 
         employeeRepository.save(employeeModel);
-        LoginModel login = new LoginModel(employeeModel.getEmailadmin(), employeeModel);
-        employeeModel.setLogin(login);
 
         Set<String> roles = new HashSet<>();
         roles.add("ADMIN");
