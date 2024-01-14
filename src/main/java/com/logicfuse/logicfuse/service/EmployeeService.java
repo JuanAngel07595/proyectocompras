@@ -41,8 +41,6 @@ public class EmployeeService {
             throw new RuntimeException("El correo electrónico ya está registrado");
         }
 
-        LoginModel login = new LoginModel(employeeModel.getEmailadmin(), employeeModel);
-        employeeModel.setLogin(login);
 
         // Asignar el email como ID del empleado
         employeeModel.setNumero_documento(employeeModel.getNumero_documento());
