@@ -1,7 +1,5 @@
 package com.logicfuse.logicfuse.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 
@@ -21,9 +19,7 @@ public class LoginModel {
 
 
     @OneToOne(mappedBy = "login", cascade = CascadeType.ALL)
-    @JsonIgnore
     private EmployeeModel employee;
-
 
     public String getemail() {
         return email;

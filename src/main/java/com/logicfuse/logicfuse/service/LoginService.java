@@ -13,6 +13,8 @@ public class LoginService {
     private JwtService jwtService;
 
     @Autowired
+    private EmployeeService employeeService;
+    @Autowired
     private LoginRepository loginRepository;
 
     @Autowired
@@ -24,6 +26,15 @@ public class LoginService {
 
             if (loginModel != null && customerService.verificarContraseña(loginModel.getCustomer().getContrasena(), loginModel.getemail())) {
                 String token = jwtService.generateToken(loginModel.getCustomer().getEmail(), loginModel.getCustomer().getRoles());
+                // Resto del código...
+            } else {
+                throw new RuntimeException("Credenciales incorrectas");
+            }
+
+            LoginModel loginModelad = loginRepository.findByEmail(login.getemail());
+
+            if (loginModelad != null && employeeService.verificarContraseña(loginModel.getEmployee().getContrasena(), loginModel.getemail())) {
+                String token = jwtService.generateTokenForAdmin(loginModel.getEmployee().getEmail(), loginModel.getEmployee().getRoles());
                 // Resto del código...
             } else {
                 throw new RuntimeException("Credenciales incorrectas");

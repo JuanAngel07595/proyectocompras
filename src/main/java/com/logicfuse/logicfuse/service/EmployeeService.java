@@ -72,6 +72,14 @@ public class EmployeeService {
             responseDTO = new ResponseDTO(400, "Hubo un error", error);
             return responseDTO;
         }
+
+    }
+    public boolean verificarContraseña(String contraseñaIngresada, String email) {
+        EmployeeModel employeeModel = employeeRepository.findByEmail(email);
+
+
+        // Verificar si el usuario existe y la contraseña coincide
+        return employeeModel != null && employeeModel.getContrasena().equals(contraseñaIngresada);
     }
 
     public void deleteEmployee(String numero_documento) {
