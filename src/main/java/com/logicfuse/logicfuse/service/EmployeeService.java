@@ -36,7 +36,6 @@ public class EmployeeService {
     public String register(EmployeeModel employeeModel) {
 
 
-        employeeModel.setEmailadmin(employeeModel.getEmailadmin());
 
         // Verificar si ya existe un empleado con el mismo email
         if (employeeRepository.findByEmail(employeeModel.getEmailadmin()) != null) {
@@ -45,23 +44,19 @@ public class EmployeeService {
 
 
         // Asignar el email como ID del empleado
-        employeeModel.setNumero_documento(employeeModel.getNumero_documento());
+        LoginModel login = new LoginModel(employeeModel.getEmailadmin(), employeeModel);
+        employeeModel.setLogin(login);
+
+        employeeRepository.save(employeeModel);
+
 
         Set<String> roles = new HashSet<>();
         roles.add("ADMIN");
         employeeModel.setRoles(roles);
 
-        // Resto de la lógica (si es necesario)...
 
-
-        // Guardar el empleado en la base de datos
-        employeeRepository.save(employeeModel);
-
-        // Generar y asignar un token JWT al empleado utilizando el email
         String token = jwtService.generateTokenForAdmin(employeeModel.getEmailadmin(), employeeModel.getRoles());
         employeeModel.setToken(token);
-
-        // Guardar el empleado actualizado con el token
         employeeRepository.save(employeeModel);
 
         return "Registro exitoso. Token JWT almacenado en la base de datos.";
