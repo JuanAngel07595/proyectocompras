@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/register")
 public class CustomerController {
 
+
     @Autowired
     private CustomerService customerService;
 
