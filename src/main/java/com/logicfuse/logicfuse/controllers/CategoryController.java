@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
 
     @Autowired
+
     private CategoryService categoryService;
 
     @GetMapping
